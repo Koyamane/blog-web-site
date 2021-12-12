@@ -35,11 +35,12 @@ export async function getInitialState(): Promise<{
       const msg = await queryCurrentUser()
       return msg.data
     } catch (error) {
-      history.push(loginPath)
+      // history.push(loginPath)
     }
     return undefined
   }
-  // 如果是登录页面，不执行
+
+  // 不是登录页面，就获取用户信息
   if (history.location.pathname !== loginPath) {
     const currentUser = await fetchUserInfo()
     return {
@@ -48,6 +49,7 @@ export async function getInitialState(): Promise<{
       settings: {}
     }
   }
+
   return {
     fetchUserInfo,
     settings: {}
@@ -64,11 +66,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     // },
     footerRender: () => <Footer />,
     onPageChange: () => {
-      const { location } = history
+      // const { location } = history
       // 如果没有登录，重定向到 login
-      if (!initialState?.currentUser && location.pathname !== loginPath) {
-        history.push(loginPath)
-      }
+      // if (!initialState?.currentUser && location.pathname !== loginPath) {
+      //   history.push(loginPath)
+      // }
     },
     menuHeaderRender: undefined,
     // 自定义 403 页面

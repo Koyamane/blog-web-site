@@ -1,1 +1,15 @@
 @import '~antd/lib/style/themes/default.less';
+@import '~/src/custom.less';
+
+.home-list {
+  margin-top: @margin-md;
+
+  .ant-list-item {
+    margin-bottom: @margin-md;
+    background: @bg-color;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

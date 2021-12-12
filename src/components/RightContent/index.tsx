@@ -31,7 +31,7 @@ const GlobalHeaderRight: React.FC = () => {
   return (
     <Space className={className}>
       <NoticeIconView />
-      <Avatar />
+      <Avatar menu />
       <SelectLang className={styles.action} reload={false} />
     </Space>
   )
