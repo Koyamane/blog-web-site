@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-10 21:30:29
+ * @LastEditTime: 2021-12-12 13:44:39
  * @Description:
  */
 // https://umijs.org/config/
@@ -49,6 +49,12 @@ export default defineConfig({
     'primary-color': defaultSettings.primaryColor,
     ...theme
   },
+  scripts: [
+    {
+      src: 'https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.js',
+      defer: true
+    }
+  ],
   // esbuild is father build tools
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},

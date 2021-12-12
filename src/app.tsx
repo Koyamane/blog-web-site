@@ -3,17 +3,16 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-10 21:33:33
+ * @LastEditTime: 2021-12-12 13:20:50
  * @Description:
  */
-import { ReactNode } from 'react'
 import type { RunTimeLayoutConfig } from 'umi'
 import { history } from 'umi'
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
-import SiteBackground from '@/components/SiteBackground'
+// import SiteBackground from '@/components/SiteBackground'
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api'
 
 const loginPath = '/user/login'
@@ -78,11 +77,11 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
   }
 }
 
-export function rootContainer(container: ReactNode) {
-  return (
-    <>
-      <SiteBackground />
-      {container}
-    </>
-  )
-}
+// export function rootContainer(container: ReactNode) {
+//   return (
+//     <>
+//       <SiteBackground />
+//       {container}
+//     </>
+//   )
+// }
