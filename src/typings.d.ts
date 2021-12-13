@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:11
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-10 21:34:04
+ * @LastEditTime: 2021-12-13 17:41:40
  * @Description:
  */
 declare module 'slash2'
@@ -18,10 +18,8 @@ declare module '*.jpeg'
 declare module '*.gif'
 declare module '*.bmp'
 declare module '*.tiff'
-declare module 'omit.js'
 declare module 'numeral'
 declare module '@antv/data-set'
-declare module 'mockjs'
 declare module 'react-fittext'
 declare module 'bizcharts-plugin-slider'
 declare module 'react-canvas-nest'

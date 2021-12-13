@@ -11,10 +11,11 @@ import React, { useState } from 'react'
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form'
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi'
 import Footer from '@/components/Footer'
-import { login } from '@/services/ant-design-pro/api'
-import { getFakeCaptcha } from '@/services/ant-design-pro/login'
 
 import styles from './index.less'
+
+const loginApi: any = new Promise(r => r({}))
+const getFakeCaptcha: any = new Promise(r => r({}))
 
 const LoginMessage: React.FC<{
   content: string
@@ -49,7 +50,7 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type })
+      const msg = await loginApi({ ...values, type })
       if (msg.status === 'ok') {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.login.success',
@@ -75,6 +76,7 @@ const Login: React.FC = () => {
       message.error(defaultLoginFailureMessage)
     }
   }
+
   const { status, type: loginType } = userLoginState
 
   return (

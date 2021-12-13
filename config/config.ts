@@ -3,12 +3,11 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-12 13:44:39
+ * @LastEditTime: 2021-12-13 17:40:54
  * @Description:
  */
 // https://umijs.org/config/
 import { defineConfig } from 'umi'
-import { join } from 'path'
 import defaultSettings from './defaultSettings'
 import proxy from './proxy'
 import routes from './routes'
@@ -66,20 +65,6 @@ export default defineConfig({
   },
   // Fast Refresh 热更新
   fastRefresh: {},
-  openAPI: [
-    {
-      requestLibPath: "import { request } from 'umi'",
-      // 或者使用在线的版本
-      // schemaPath: "https://gw.alipayobjects.com/os/antfincdn/M%24jrzTTYJN/oneapi.json"
-      schemaPath: join(__dirname, 'oneapi.json'),
-      mock: false
-    },
-    {
-      requestLibPath: "import { request } from 'umi'",
-      schemaPath: 'https://gw.alipayobjects.com/os/antfincdn/CA1dOm%2631B/openapi.json',
-      projectName: 'swagger'
-    }
-  ],
   nodeModulesTransform: {
     type: 'none'
   },

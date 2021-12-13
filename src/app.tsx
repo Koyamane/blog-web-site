@@ -12,9 +12,8 @@ import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
-// import SiteBackground from '@/components/SiteBackground'
-import { currentUser as queryCurrentUser } from './services/ant-design-pro/api'
 
+const queryCurrentUser: any = new Promise(r => r({}))
 const loginPath = '/user/login'
 
 /** 获取用户信息比较慢的时候会展示一个 loading */

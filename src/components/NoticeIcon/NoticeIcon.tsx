@@ -85,10 +85,15 @@ const NoticeIcon: React.FC<NoticeIconProps> & {
 
   const { className, count, bell } = props
 
+  // 这个 useMergedState 好像可以自动添加 set，就算 props 里没有传值
   const [visible, setVisible] = useMergedState<boolean>(false, {
     value: props.popupVisible,
     onChange: props.onPopupVisibleChange
   })
+
+  // 不清楚可以打印查看
+  // console.log(visible, setVisible, props.onPopupVisibleChange)
+
   const noticeButtonClass = classNames(className, styles.noticeButton)
   const notificationBox = getNotificationBox()
   const NoticeBellIcon = bell || <BellOutlined className={styles.icon} />
