@@ -6,15 +6,28 @@
  * @LastEditTime: 2021-12-12 14:14:04
  * @Description:
  */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Alert } from 'antd'
 import { TextLoop } from 'react-text-loop-next'
 import { SoundOutlined } from '@ant-design/icons'
 import MainContainer from '@/components/MainContainer'
+import { testApi } from '@/services/global'
 import HomeList from './components/HomeList'
 import './index.less'
 
 export default (): React.ReactNode => {
+  const init = async () => {
+    try {
+      await testApi()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    init()
+  }, [])
+
   return (
     <MainContainer>
       <Alert

@@ -6,12 +6,13 @@
  * @LastEditTime: 2021-12-12 13:20:50
  * @Description:
  */
-import type { RunTimeLayoutConfig } from 'umi'
+import type { RequestConfig, RunTimeLayoutConfig } from 'umi'
 import { history } from 'umi'
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
+import requestConfig from './requestConfig'
 
 const queryCurrentUser: any = new Promise(r => r({}))
 const loginPath = '/user/login'
@@ -77,6 +78,8 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     ...initialState?.settings
   }
 }
+
+export const request: RequestConfig = requestConfig
 
 // export function rootContainer(container: ReactNode) {
 //   return (
