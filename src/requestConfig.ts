@@ -1,3 +1,11 @@
+/*
+ * @Author: dingyun
+ * @Date: 2021-12-14 15:22:37
+ * @LastEditors: dingyun
+ * @Email: dingyun@zhuosoft.com
+ * @LastEditTime: 2021-12-21 21:27:23
+ * @Description:
+ */
 import { notification } from 'antd'
 import { RequestConfig } from 'umi'
 import { RequestOptionsInit, ResponseError } from 'umi-request'
@@ -46,9 +54,10 @@ const errorHandler = (error: ResponseError) => {
 }
 
 const baseUrl = process.env.NODE_ENV === 'development' ? '' : 'http://127.0.0.1:7001'
+const prefix = process.env.NODE_ENV === 'development' ? '/services' : ''
 
 const requestConfig: RequestConfig = {
-  prefix: '/api',
+  prefix,
   timeout: 60000,
   errorHandler,
   requestInterceptors: [
@@ -70,7 +79,11 @@ const requestConfig: RequestConfig = {
       if (res.status === 200) {
         try {
           const data = await res.clone().json()
-          if ((options.data && options.data.allResponse) || options.params) {
+          // data，params都是请求的参数
+          if (
+            (options.data && options.data.allResponse) ||
+            (options.params && options.params.allResponse)
+          ) {
             return data
           }
           return data.data ? data.data : data

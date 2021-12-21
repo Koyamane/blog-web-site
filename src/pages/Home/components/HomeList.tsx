@@ -3,36 +3,54 @@
  * @Date: 2021-12-12 14:08:47
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-12 14:12:58
+ * @LastEditTime: 2021-12-21 21:50:57
  * @Description:
  */
 
-import React, { FunctionComponent } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Avatar, List, Space, Tag } from 'antd'
-import { ClockCircleOutlined, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons'
+import moment from 'moment'
+import { ClockCircleOutlined, EyeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons'
+import { BlogPageApi } from '../services'
 
-const listData: any[] = []
-
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://ant.design',
-    title: `ant design part ${i}`,
-    avatar: 'https://joeschmoe.io/api/v1/random',
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.'
-  })
-}
-
-const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string }) => (
+const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string | number }) => (
   <Space>
     {React.createElement(icon)}
     {text}
   </Space>
 )
 
+interface BlogInfo {
+  createdName: string
+  createdId: string
+  createdAvatar: string
+  createdDate: string
+  title: string
+  content: string
+  tags: string[]
+  imgs: string[]
+  reads: number
+  likes: number
+  collections: number
+}
+
 const HomeList: React.FC = () => {
+  const [blogList, setBlogList] = useState<BlogInfo[]>([])
+
+  const getBlogList = async () => {
+    try {
+      const res = await BlogPageApi()
+      res && res.list && setBlogList(res.list)
+    } catch (error) {
+      setBlogList([])
+      console.log('获取首页博客报错了', error)
+    }
+  }
+
+  useEffect(() => {
+    getBlogList()
+  }, [])
+
   return (
     <List
       className='home-list'
@@ -41,34 +59,26 @@ const HomeList: React.FC = () => {
       pagination={{
         pageSize: 10
       }}
-      dataSource={listData}
+      dataSource={blogList}
       renderItem={item => (
         <List.Item
           key={item.title}
           actions={[
-            <IconText icon={StarOutlined} text='156' key='list-vertical-star-o' />,
-            <IconText icon={LikeOutlined} text='156' key='list-vertical-like-o' />,
-            <IconText icon={MessageOutlined} text='2' key='list-vertical-message' />,
-            <IconText icon={ClockCircleOutlined} text='2022-12-12 18:01' key='list-vertical-date' />
-          ]}
-          extra={
-            <img
-              width={272}
-              alt='logo'
-              src='https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'
+            <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
+            <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
+            <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />,
+            <IconText
+              icon={ClockCircleOutlined}
+              text={moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')}
+              key='list-vertical-date'
             />
-          }
+          ]}
+          extra={item.imgs[0] && <img width={272} alt='logo' src={item.imgs[0]} />}
         >
           <List.Item.Meta
-            avatar={<Avatar src={item.avatar} />}
-            title={<a href={item.href}>{item.title}</a>}
-            description={
-              <>
-                <Tag>语雀专栏</Tag>
-                <Tag>设计语言</Tag>
-                <Tag>蚂蚁金服</Tag>
-              </>
-            }
+            avatar={<Avatar src={item.createdAvatar} />}
+            title={<a>{item.title}</a>}
+            description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />
           {item.content}
         </List.Item>

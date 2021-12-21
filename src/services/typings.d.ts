@@ -2,6 +2,21 @@
 /* eslint-disable */
 
 declare namespace API {
+  type PageParams = {
+    /** 默认精确查找，模糊查找请使用正则，例如 name: /小/ */
+    search?: Record<string>
+    current?: number
+    pageSize?: number
+    /** 1是升序，-1是降序 */
+    sort?: {
+      [key: string]: 1 | -1
+    }
+    /** 过滤字段，为空不过滤，1显示，0不显示 */
+    filter?: {
+      [key: string]: 1 | 0
+    }
+  }
+
   type CurrentUser = {
     name?: string
     avatar?: string
@@ -27,11 +42,6 @@ declare namespace API {
     status?: string
     type?: string
     currentAuthority?: string
-  }
-
-  type PageParams = {
-    current?: number
-    pageSize?: number
   }
 
   type RuleListItem = {
