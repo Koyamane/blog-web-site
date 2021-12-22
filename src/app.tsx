@@ -3,11 +3,12 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-12 13:20:50
+ * @LastEditTime: 2021-12-22 22:02:57
  * @Description:
  */
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi'
 import { history } from 'umi'
+import { ConfigProvider } from 'antd'
 import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
@@ -81,11 +82,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
 
 export const request: RequestConfig = requestConfig
 
-// export function rootContainer(container: ReactNode) {
-//   return (
-//     <>
-//       <SiteBackground />
-//       {container}
-//     </>
-//   )
-// }
+export function rootContainer(container: React.ReactNode) {
+  // 这里进行全局组件配置
+  return <ConfigProvider space={{ size: 'middle' }}>{container}</ConfigProvider>
+}

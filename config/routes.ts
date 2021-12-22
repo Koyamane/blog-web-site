@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-10 21:31:54
+ * @LastEditTime: 2021-12-22 11:26:55
  * @Description:
  */
 export default [
@@ -49,6 +49,12 @@ export default [
         component: './404'
       }
     ]
+  },
+  {
+    path: '/newBlog',
+    name: 'newBlog',
+    icon: 'plus',
+    component: './Blog/NewBlog'
   },
   // {
   //   name: 'list.table-list',

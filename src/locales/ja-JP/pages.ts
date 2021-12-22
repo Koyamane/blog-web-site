@@ -3,6 +3,8 @@ export default {
   'pages.login.accountLogin.tab': 'アカウントログイン',
   'pages.login.accountLogin.errorMessage':
     'ユーザー名/パスワードが正しくありません(admin/ant.design)',
+  'pages.login.failure': 'ログイン失敗、再試行してください！',
+  'pages.login.success': 'ログイン成功！',
   'pages.login.username.placeholder': 'ユーザー名：adminまたはuser',
   'pages.login.username.required': 'ユーザー名を入力してください！',
   'pages.login.password.placeholder': 'パスワード：ant.design',
@@ -63,5 +65,17 @@ export default {
   'pages.searchTable.totalServiceCalls': 'サービスコールの総数',
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': 'バッチ削除',
-  'pages.searchTable.batchApproval': 'バッチ承認'
+  'pages.searchTable.batchApproval': 'バッチ承認',
+  'pages.searchTable.query': '検索',
+  'pages.form.upload': 'アップロード',
+  'pages.form.submit': '提出',
+  'pages.form.release': 'リリース',
+  'pages.form.ok': 'OK',
+  'pages.form.cancel': 'キャンセル',
+  'pages.form.reset': 'リセット',
+  'pages.form.clear': 'クリア',
+  'pages.form.new': '新規',
+  'pages.form.edit': 'エディット',
+  'pages.form.modify': '変更',
+  'pages.form.delete': '削除'
 }

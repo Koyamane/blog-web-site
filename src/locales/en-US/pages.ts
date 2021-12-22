@@ -66,5 +66,17 @@ export default {
   'pages.searchTable.totalServiceCalls': 'Total Number of Service Calls',
   'pages.searchTable.tenThousand': '0000',
   'pages.searchTable.batchDeletion': 'bacth deletion',
-  'pages.searchTable.batchApproval': 'batch approval'
+  'pages.searchTable.batchApproval': 'batch approval',
+  'pages.searchTable.query': 'Query',
+  'pages.form.upload': 'Upload',
+  'pages.form.submit': 'Submit',
+  'pages.form.release': 'Release',
+  'pages.form.ok': 'OK',
+  'pages.form.cancel': 'Cancel',
+  'pages.form.reset': 'Reset',
+  'pages.form.clear': 'Clear',
+  'pages.form.new': 'New',
+  'pages.form.edit': 'Edit',
+  'pages.form.modify': 'Modify',
+  'pages.form.delete': 'Delete'
 }

@@ -63,5 +63,17 @@ export default {
   'pages.searchTable.totalServiceCalls': '服务调用次数总计',
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
-  'pages.searchTable.batchApproval': '批量审批'
+  'pages.searchTable.batchApproval': '批量审批',
+  'pages.searchTable.query': '查询',
+  'pages.form.upload': '上传',
+  'pages.form.submit': '提交',
+  'pages.form.release': '发布',
+  'pages.form.ok': '确定',
+  'pages.form.cancel': '取消',
+  'pages.form.reset': '重置',
+  'pages.form.clear': '清空',
+  'pages.form.new': '新建',
+  'pages.form.edit': '编辑',
+  'pages.form.modify': '修改',
+  'pages.form.delete': '删除'
 }
