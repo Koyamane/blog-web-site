@@ -3,9 +3,12 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-22 11:26:55
+ * @LastEditTime: 2021-12-23 13:47:47
  * @Description:
  */
+
+// 使用hide或不写name，都会导致菜单在页面上不显示
+
 export default [
   {
     path: '/user',
@@ -29,7 +32,7 @@ export default [
   {
     path: '/home',
     name: 'home',
-    icon: 'home',
+    // icon: 'home',
     component: './Home'
   },
   {
@@ -56,12 +59,6 @@ export default [
     icon: 'plus',
     component: './Blog/NewBlog'
   },
-  // {
-  //   name: 'list.table-list',
-  //   icon: 'table',
-  //   path: '/list',
-  //   component: './TableList'
-  // },
   {
     path: '/',
     redirect: '/home'

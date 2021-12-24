@@ -3,14 +3,20 @@
  * @Date: 2021-12-12 14:08:47
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-21 21:50:57
+ * @LastEditTime: 2021-12-24 23:41:59
  * @Description:
  */
 
 import React, { FunctionComponent, useEffect, useState } from 'react'
 import { Avatar, List, Space, Tag } from 'antd'
 import moment from 'moment'
-import { ClockCircleOutlined, EyeOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons'
+import {
+  ClockCircleOutlined,
+  EyeOutlined,
+  LikeOutlined,
+  StarOutlined,
+  UserOutlined
+} from '@ant-design/icons'
 import { BlogPageApi } from '../services'
 
 const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string | number }) => (
@@ -21,14 +27,15 @@ const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string |
 )
 
 interface BlogInfo {
+  id: number | string
   createdName: string
   createdId: string
   createdAvatar: string
   createdDate: string
   title: string
   content: string
+  previewImg: string
   tags: string[]
-  imgs: string[]
   reads: number
   likes: number
   collections: number
@@ -62,7 +69,7 @@ const HomeList: React.FC = () => {
       dataSource={blogList}
       renderItem={item => (
         <List.Item
-          key={item.title}
+          key={item.id}
           actions={[
             <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
             <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
@@ -73,10 +80,10 @@ const HomeList: React.FC = () => {
               key='list-vertical-date'
             />
           ]}
-          extra={item.imgs[0] && <img width={272} alt='logo' src={item.imgs[0]} />}
+          extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
         >
           <List.Item.Meta
-            avatar={<Avatar src={item.createdAvatar} />}
+            avatar={<Avatar src={item.createdAvatar} icon={<UserOutlined />} />}
             title={<a>{item.title}</a>}
             description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />

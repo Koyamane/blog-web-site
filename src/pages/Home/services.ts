@@ -9,5 +9,5 @@
 import { request } from 'umi'
 
 export const BlogPageApi = (params?: API.PageParams) => {
-  return request('/home/api/blog/page', { method: 'post', data: params })
+  return request('/blog/api/page', { method: 'post', data: params })
 }
