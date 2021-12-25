@@ -12,4 +12,17 @@
       margin-bottom: 0;
     }
   }
+
+  .home-list-item-content {
+    display: -webkit-box; // 对象作为伸缩盒子模型展示
+    overflow: hidden;
+    text-indent: 2em;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical; // 设置或检索伸缩盒子对象的子元素的排列方式
+    -webkit-line-clamp: 4; // 在第几行上加 ...
+  }
+
+  .ant-pagination {
+    text-align: center;
+  }
 }

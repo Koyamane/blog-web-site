@@ -25,7 +25,7 @@ export default [
         ]
       },
       {
-        component: './404'
+        component: './Exception/404'
       }
     ]
   },
@@ -49,7 +49,7 @@ export default [
         component: './Home'
       },
       {
-        component: './404'
+        component: './Exception/404'
       }
     ]
   },
@@ -64,6 +64,6 @@ export default [
     redirect: '/home'
   },
   {
-    component: './404'
+    component: './Exception/404'
   }
 ]

@@ -54,7 +54,7 @@ module.exports = {
     // 禁用使用分号
     '@typescript-eslint/semi': [2, 'never'],
     // 使用单引号, 默认false(在jsx中配置无效, 默认都是双引号)
-    quotes: [2, 'single'],
+    quotes: [2, 'single', { avoidEscape: true }],
     // 对象字面量项尾不能有逗号
     'comma-dangle': [2, 'never'],
     // 不能有警告备注

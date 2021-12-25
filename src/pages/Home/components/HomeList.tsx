@@ -8,8 +8,9 @@
  */
 
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { Avatar, List, Space, Tag } from 'antd'
+import { useIntl } from 'umi'
 import moment from 'moment'
+import { Avatar, List, Space, Tag } from 'antd'
 import {
   ClockCircleOutlined,
   EyeOutlined,
@@ -42,16 +43,53 @@ interface BlogInfo {
 }
 
 const HomeList: React.FC = () => {
-  const [blogList, setBlogList] = useState<BlogInfo[]>([])
+  const intl = useIntl()
+  const [listLoading, setBistLoading] = useState(true)
+  const [blogData, setBlogData] = useState<{
+    list: BlogInfo[]
+    pagination: { current: number; total: number }
+  }>({
+    list: [],
+    pagination: { current: 1, total: 0 }
+  })
 
-  const getBlogList = async () => {
+  const itemRender = (
+    current: number,
+    type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
+    originalElement: React.ReactNode
+  ) => {
+    if (type === 'prev') {
+      return (
+        <a>
+          {intl.formatMessage({ id: 'pages.searchTable.previousPage', defaultMessage: '上一页' })}
+        </a>
+      )
+    }
+    if (type === 'next') {
+      return (
+        <a>{intl.formatMessage({ id: 'pages.searchTable.nextPage', defaultMessage: '下一页' })}</a>
+      )
+    }
+    return originalElement
+  }
+
+  const getBlogList = async (current: number = 1) => {
+    setBistLoading(true)
     try {
-      const res = await BlogPageApi()
-      res && res.list && setBlogList(res.list)
+      const res = await BlogPageApi({ current })
+      if (res) {
+        setBlogData({
+          list: res.list,
+          pagination: {
+            current: res.current,
+            total: res.total
+          }
+        })
+      }
     } catch (error) {
-      setBlogList([])
       console.log('获取首页博客报错了', error)
     }
+    setBistLoading(false)
   }
 
   useEffect(() => {
@@ -62,11 +100,14 @@ const HomeList: React.FC = () => {
     <List
       className='home-list'
       size='large'
+      loading={listLoading}
       itemLayout='vertical'
       pagination={{
-        pageSize: 10
+        ...blogData.pagination,
+        itemRender,
+        onChange: getBlogList
       }}
-      dataSource={blogList}
+      dataSource={blogData.list}
       renderItem={item => (
         <List.Item
           key={item.id}
@@ -87,7 +128,9 @@ const HomeList: React.FC = () => {
             title={<a>{item.title}</a>}
             description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />
-          {item.content}
+          <div className='home-list-item-content'>
+            {item.content && item.content.replace(/<[^>]+>/g, '')}
+          </div>
         </List.Item>
       )}
     />
