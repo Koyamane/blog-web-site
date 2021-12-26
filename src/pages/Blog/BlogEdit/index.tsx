@@ -3,7 +3,7 @@
  * @Date: 2021-12-22 11:12:27
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-25 17:17:27
+ * @LastEditTime: 2021-12-26 13:13:42
  * @Description:
  */
 import React, { useState } from 'react'
@@ -140,9 +140,9 @@ export default (): React.ReactNode => {
 
   return (
     <MainContainer>
-      <Alert banner showIcon={false} className={styles.alert} message='在这里发布您的博客' />
+      <Alert banner showIcon={false} message='在这里发布您的博客' />
 
-      <Form form={form}>
+      <Form form={form} className={styles.form}>
         <Form.Item
           name='title'
           label={intl.formatMessage({ id: 'pages.form.itemTitle' })}
@@ -150,6 +150,7 @@ export default (): React.ReactNode => {
         >
           <Input placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })} />
         </Form.Item>
+
         <Form.Item
           name='tags'
           label={intl.formatMessage({ id: 'pages.form.itemTag' })}
@@ -174,7 +175,7 @@ export default (): React.ReactNode => {
         toolbarsExclude={['github', 'save', 'image']}
       />
 
-      <Space className={styles.footerBar}>
+      <Space size='middle' className={styles.footerBar}>
         <Button loading={btnLoading} onClick={resetForm}>
           {intl.formatMessage({
             id: 'pages.form.reset',
@@ -183,7 +184,7 @@ export default (): React.ReactNode => {
         </Button>
         <Button type='primary' loading={btnLoading} onClick={releaseBlog}>
           {intl.formatMessage({
-            id: 'pages.form.release',
+            id: 'pages.form.blog',
             defaultMessage: '发布'
           })}
         </Button>

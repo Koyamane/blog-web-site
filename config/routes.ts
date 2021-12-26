@@ -1,13 +1,40 @@
 ﻿/*
  * @Author: dingyun
- * @Date: 2021-12-10 20:54:10
+ * @Date: 2021-12-25 23:14:57
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-23 13:47:47
+ * @LastEditTime: 2021-12-26 15:29:51
  * @Description:
  */
-
 // 使用hide或不写name，都会导致菜单在页面上不显示
+
+// path: '/welcome',
+// component: 'IndexPage',
+// name: '欢迎', // 兼容此写法
+// icon: 'testicon',
+// // 更多功能查看
+// // https://beta-pro.ant.design/docs/advanced-menu
+// // ---
+// // 新页面打开
+// target: '_blank',
+// // 不展示顶栏
+// headerRender: false,
+// // 不展示页脚
+// footerRender: false,
+// // 不展示菜单
+// menuRender: false,
+// // 不展示菜单顶栏
+// menuHeaderRender: false,
+// // 权限配置，需要与 plugin-access 插件配合使用
+// access: 'canRead',
+// // 隐藏子菜单
+// hideChildrenInMenu: true,
+// // 隐藏自己和子菜单
+// hideInMenu: true,
+// // 在面包屑中隐藏
+// hideInBreadcrumb: true,
+// // 子项往上提，仍旧展示,
+// flatMenu: true,
 
 export default [
   {
@@ -32,7 +59,7 @@ export default [
   {
     path: '/home',
     name: 'home',
-    // icon: 'home',
+    icon: 'home',
     component: './Home'
   },
   {
@@ -40,13 +67,12 @@ export default [
     name: 'admin',
     icon: 'crown',
     access: 'canAdmin',
-    component: './Admin',
     routes: [
       {
         path: '/admin/sub-page',
         name: 'sub-page',
         icon: 'smile',
-        component: './Home'
+        component: './Admin'
       },
       {
         component: './Exception/404'
@@ -54,10 +80,25 @@ export default [
     ]
   },
   {
-    path: '/newBlog',
-    name: 'newBlog',
-    icon: 'plus',
-    component: './Blog/NewBlog'
+    path: '/blog',
+    name: 'blog',
+    icon: 'read',
+    routes: [
+      {
+        path: '/blog/blog-edit',
+        name: 'blog-edit',
+        component: './Blog/BlogEdit'
+      },
+      {
+        path: '/blog/blog-post/:id',
+        hideInMenu: true,
+        name: 'blog-post',
+        component: './Blog/BlogPost'
+      },
+      {
+        component: './Exception/404'
+      }
+    ]
   },
   {
     path: '/',

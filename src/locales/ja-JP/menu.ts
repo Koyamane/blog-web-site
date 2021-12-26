@@ -1,7 +1,9 @@
 export default {
   'menu.more-blocks': 'その他のブロック',
   'menu.home': 'ホーム',
-  'menu.newBlog': 'ブログ',
+  'menu.blog': 'ブログ',
+  'menu.blog.blog-edit': 'ブログの投稿',
+  'menu.blog.blog-post': 'ブログ記事',
   'menu.admin': '管理者',
   'menu.admin.sub-page': 'サブページ',
   'menu.login': 'ログイン',

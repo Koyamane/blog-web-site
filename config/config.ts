@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-13 17:40:54
+ * @LastEditTime: 2021-12-26 14:40:56
  * @Description:
  */
 // https://umijs.org/config/
@@ -45,6 +45,7 @@ export default defineConfig({
   routes,
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
+    // 这里不能按照文档写，@primary-color，会导致下面的 scripts 失效
     'primary-color': defaultSettings.primaryColor,
     ...theme
   },

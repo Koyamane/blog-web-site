@@ -1,7 +1,7 @@
 export default {
   'pages.form.upload': '上传',
   'pages.form.submit': '提交',
-  'pages.form.release': '发布',
+  'pages.form.blog': '发布',
   'pages.form.ok': '确定',
   'pages.form.cancel': '取消',
   'pages.form.reset': '重置',

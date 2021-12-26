@@ -1,7 +1,7 @@
 export default {
   'pages.form.upload': 'Upload',
   'pages.form.submit': 'Submit',
-  'pages.form.release': 'Release',
+  'pages.form.blog': 'Submit',
   'pages.form.ok': 'OK',
   'pages.form.cancel': 'Cancel',
   'pages.form.reset': 'Reset',

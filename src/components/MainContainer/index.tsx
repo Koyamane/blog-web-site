@@ -9,6 +9,7 @@ const MainContainer: React.FC<PageContainerProps> = props => {
   return (
     <PageContainer
       title={false}
+      breadcrumb={{}}
       className={classNames(className, 'main-container')}
       {...containerProps}
     >

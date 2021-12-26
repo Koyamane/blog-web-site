@@ -1,7 +1,9 @@
 export default {
   'menu.more-blocks': 'More Blocks',
   'menu.home': 'Home',
-  'menu.newBlog': 'Blog',
+  'menu.blog': 'Blog',
+  'menu.blog.blog-edit': 'Blogging',
+  'menu.blog.blog-post': 'Blog Post',
   'menu.admin': 'Admin',
   'menu.admin.sub-page': 'Sub-Page',
   'menu.login': 'Login',

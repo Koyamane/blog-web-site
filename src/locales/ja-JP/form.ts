@@ -1,7 +1,7 @@
 export default {
   'pages.form.upload': 'アップロード',
   'pages.form.submit': '提出',
-  'pages.form.release': 'リリース',
+  'pages.form.blog': '投稿',
   'pages.form.ok': 'OK',
   'pages.form.cancel': 'キャンセル',
   'pages.form.reset': 'リセット',

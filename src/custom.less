@@ -1,18 +1,27 @@
 @page-max-width: 1200px;
-@bg-color: #fff;
+@base-shadow: 0 1px 4px 0 #0015291f;
 
-.ant-pro-top-nav-header {
-  .ant-pro-top-nav-header-main {
-    max-width: @page-max-width;
-    margin: 0 auto;
+#root {
+  .ant-alert {
+    margin-bottom: @margin-md;
+    box-shadow: @base-shadow;
   }
 
-  .ant-menu {
-    justify-content: center;
+  .ant-pro-top-nav-header {
+    .ant-pro-top-nav-header-main {
+      max-width: @page-max-width;
+      margin: 0 auto;
+    }
+
+    .ant-menu {
+      justify-content: center;
+    }
   }
 }
 
 #md-editor-rt {
+  box-shadow: @base-shadow;
+
   ul,
   ol {
     list-style: revert;

@@ -8,7 +8,7 @@
  */
 
 import React, { FunctionComponent, useEffect, useState } from 'react'
-import { useIntl } from 'umi'
+import { NavLink, useIntl } from 'umi'
 import moment from 'moment'
 import { Avatar, List, Space, Tag } from 'antd'
 import {
@@ -125,7 +125,7 @@ const HomeList: React.FC = () => {
         >
           <List.Item.Meta
             avatar={<Avatar src={item.createdAvatar} icon={<UserOutlined />} />}
-            title={<a>{item.title}</a>}
+            title={<NavLink to={`/blog/blog-post/${item.id}`}>{item.title}</NavLink>}
             description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />
           <div className='home-list-item-content'>

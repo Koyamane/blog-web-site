@@ -1,0 +1,42 @@
+@import '~antd/es/style/themes/default.less';
+@import '~/src/custom.less';
+
+.articleDetail {
+  padding: @margin-md;
+  background: @component-background;
+  box-shadow: @base-shadow;
+
+  .articleDetailTitle {
+    margin: @margin-md x;
+    color: #5c5c5c;
+    font-weight: 700;
+    font-size: 24px;
+    text-align: center;
+    text-shadow: 0 0 8px #fff6f6;
+  }
+
+  .articleDetailTags {
+    display: flex;
+    justify-content: center;
+    margin-bottom: @margin-md;
+  }
+
+  .articleDetailInfo {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .splitLine {
+    margin: @margin-md 0;
+  }
+
+  .articleDetailContent {
+    :global(ul) {
+      list-style: revert;
+    }
+
+    :global(ol) {
+      list-style: revert;
+    }
+  }
+}
