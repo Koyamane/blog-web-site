@@ -15,5 +15,6 @@ export default {
   'pages.form.selectMsg': 'Please select',
   'pages.form.textareaMsg': 'Please fill in',
   'pages.form.itemTitle': 'Title',
-  'pages.form.itemTag': 'Tag'
+  'pages.form.itemTag': 'Tag',
+  'pages.form.itemEditor': 'Editor'
 }

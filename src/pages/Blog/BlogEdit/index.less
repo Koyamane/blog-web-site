@@ -12,3 +12,20 @@
   background: @component-background;
   box-shadow: @base-shadow;
 }
+
+.shadowBox {
+  background: @component-background;
+  box-shadow: @base-shadow;
+
+  :global(.ql-editor) {
+    height: 400px;
+  }
+
+  :global(.ql-toolbar) {
+    border-color: @border-color-base;
+  }
+
+  :global(.ql-container) {
+    border-color: @border-color-base;
+  }
+}

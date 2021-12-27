@@ -3,7 +3,7 @@
  * @Date: 2021-12-12 14:08:47
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-24 23:41:59
+ * @LastEditTime: 2021-12-27 14:08:56
  * @Description:
  */
 
@@ -125,7 +125,7 @@ const HomeList: React.FC = () => {
         >
           <List.Item.Meta
             avatar={<Avatar src={item.createdAvatar} icon={<UserOutlined />} />}
-            title={<NavLink to={`/blog/blog-post/${item.id}`}>{item.title}</NavLink>}
+            title={<NavLink to={`/blog/post/${item.id}`}>{item.title}</NavLink>}
             description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />
           <div className='home-list-item-content'>

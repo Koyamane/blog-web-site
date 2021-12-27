@@ -3,7 +3,7 @@
  * @Date: 2021-12-22 11:12:27
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-26 23:45:48
+ * @LastEditTime: 2021-12-27 13:29:48
  * @Description:
  */
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
@@ -18,6 +18,8 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import MainContainer from '@/components/MainContainer'
+import MarkdownReader from './components/MarkdownReader'
+import RichTextReader from './components/RichTextReader'
 import { BlogInfoApi } from './services'
 import { BlogInfoType } from '../BlogEdit/data'
 import styles from './index.less'
@@ -29,6 +31,9 @@ const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string |
   </Space>
 )
 
+const Reader = ({ editor, value }: { editor: BlogInfoType['editor']; value: string }) =>
+  editor === 'MARKDOWN' ? <MarkdownReader mdValue={value} /> : <RichTextReader value={value} />
+
 export default (): React.ReactNode => {
   const { pathname } = useLocation()
   const [blogInfo, setBlogInfo] = useState<BlogInfoType>({})
@@ -36,6 +41,10 @@ export default (): React.ReactNode => {
   const id = useMemo(() => {
     return pathname.replace(/.*\//g, '')
   }, [pathname])
+
+  const articleDetail = useMemo(() => {
+    return blogInfo.mdData || blogInfo.content
+  }, [blogInfo])
 
   const getBlogInfo = async () => {
     if (!id) {
@@ -59,11 +68,13 @@ export default (): React.ReactNode => {
     <MainContainer>
       <div className={styles.articleDetail}>
         <div className={styles.articleDetailTitle}>{blogInfo.title}</div>
-        <div className={styles.articleDetailTags}>
-          {blogInfo.tags &&
-            blogInfo.tags.length > 0 &&
-            blogInfo.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
-        </div>
+        {blogInfo.tags && blogInfo.tags.length > 0 && (
+          <div className={styles.articleDetailTags}>
+            {blogInfo.tags.map(tag => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        )}
         <Space className={styles.articleDetailInfo}>
           <IconText
             icon={ClockCircleOutlined}
@@ -79,14 +90,10 @@ export default (): React.ReactNode => {
           <IconText icon={EyeOutlined} text={blogInfo.reads} />
         </Space>
 
-        {/* 这里要区分是不是markdown的，markdown用另一种显示 */}
-        {blogInfo.content && (
+        {articleDetail && (
           <>
             <Divider className={styles.splitLine} />
-            <div
-              className={styles.articleDetailContent}
-              dangerouslySetInnerHTML={{ __html: blogInfo.content }}
-            />
+            <Reader editor={blogInfo.editor} value={articleDetail} />
           </>
         )}
       </div>

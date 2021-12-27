@@ -31,6 +31,7 @@ export default {
   'pages.admin.subPage.title': 'このページは管理者のみが表示できます',
   'pages.admin.subPage.alertMessage':
     'Umi uiがリリースされました。npm run uiを使用して体験してください。',
+  'pages.blog.blog-edit.topNotice': 'ここでブログを投稿します。',
   'pages.searchTable.createForm.newRule': '新しいルール',
   'pages.searchTable.updateForm.ruleConfig': 'ルール構成',
   'pages.searchTable.updateForm.basicConfig': '基本情報',

@@ -20,7 +20,25 @@
 }
 
 #md-editor-rt {
-  box-shadow: @base-shadow;
+  // box-shadow: @base-shadow;
+  border-color: @border-color-base;
+
+  .md-toolbar-wrapper {
+    overflow: initial;
+  }
+
+  .md-toolbar {
+    flex-wrap: wrap;
+    min-width: auto;
+    height: auto;
+    min-height: 35px;
+    border-color: @border-color-base;
+  }
+
+  .md-toolbar-left,
+  .md-toolbar-right {
+    flex-wrap: wrap;
+  }
 
   ul,
   ol {

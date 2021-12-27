@@ -3,7 +3,7 @@
  * @Date: 2021-12-25 16:34:33
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-25 16:46:38
+ * @LastEditTime: 2021-12-27 13:58:24
  * @Description:
  */
 
@@ -13,6 +13,7 @@ export interface BlogInfoType {
   createdId: string
   createdAvatar: string
   createdDate: string
+  editor: 'RICH_TEXT' | 'MARKDOWN'
   title: string
   content: string
   mdData: string
@@ -24,3 +25,15 @@ export interface BlogInfoType {
 }
 
 export type AddBlogType = Partial<BlogInfoType> & { title: BlogInfoType['title'] }
+
+export interface RichTextEditorProps {
+  value: string
+  onChange: (value: string) => void
+}
+
+export interface MarkdownEditorProps {
+  mdValue: string
+  locale: string
+  mdChange: (value: string) => void
+  htmlChange: (value: string) => void
+}

@@ -15,5 +15,6 @@ export default {
   'pages.form.selectMsg': '選択してください',
   'pages.form.textareaMsg': '記入してください',
   'pages.form.itemTitle': 'タイトル',
-  'pages.form.itemTag': 'タグ'
+  'pages.form.itemTag': 'タグ',
+  'pages.form.itemEditor': 'エディタ'
 }
