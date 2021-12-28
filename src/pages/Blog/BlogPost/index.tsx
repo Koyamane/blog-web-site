@@ -17,7 +17,6 @@ import {
   StarOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import MainContainer from '@/components/MainContainer'
 import MarkdownReader from './components/MarkdownReader'
 import RichTextReader from './components/RichTextReader'
 import { BlogInfoApi } from './services'
@@ -65,38 +64,36 @@ export default (): React.ReactNode => {
   }, [])
 
   return (
-    <MainContainer>
-      <div className={styles.articleDetail}>
-        <div className={styles.articleDetailTitle}>{blogInfo.title}</div>
-        {blogInfo.tags && blogInfo.tags.length > 0 && (
-          <div className={styles.articleDetailTags}>
-            {blogInfo.tags.map(tag => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </div>
-        )}
-        <Space className={styles.articleDetailInfo}>
-          <IconText
-            icon={ClockCircleOutlined}
-            text={moment(blogInfo.createdDate).format('YYYY-MM-DD HH:mm:ss')}
-          />
-          <Divider type='vertical' />
-          <IconText icon={UserOutlined} text={blogInfo.createdName} />
-          <Divider type='vertical' />
-          <IconText icon={StarOutlined} text={blogInfo.collections} />
-          <Divider type='vertical' />
-          <IconText icon={LikeOutlined} text={blogInfo.likes} />
-          <Divider type='vertical' />
-          <IconText icon={EyeOutlined} text={blogInfo.reads} />
-        </Space>
+    <div className={styles.articleDetail}>
+      <div className={styles.articleDetailTitle}>{blogInfo.title}</div>
+      {blogInfo.tags && blogInfo.tags.length > 0 && (
+        <div className={styles.articleDetailTags}>
+          {blogInfo.tags.map(tag => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
+        </div>
+      )}
+      <Space className={styles.articleDetailInfo}>
+        <IconText
+          icon={ClockCircleOutlined}
+          text={moment(blogInfo.createdDate).format('YYYY-MM-DD HH:mm:ss')}
+        />
+        <Divider type='vertical' />
+        <IconText icon={UserOutlined} text={blogInfo.createdName} />
+        <Divider type='vertical' />
+        <IconText icon={StarOutlined} text={blogInfo.collections} />
+        <Divider type='vertical' />
+        <IconText icon={LikeOutlined} text={blogInfo.likes} />
+        <Divider type='vertical' />
+        <IconText icon={EyeOutlined} text={blogInfo.reads} />
+      </Space>
 
-        {articleDetail && (
-          <>
-            <Divider className={styles.splitLine} />
-            <Reader editor={blogInfo.editor} value={articleDetail} />
-          </>
-        )}
-      </div>
-    </MainContainer>
+      {articleDetail && (
+        <>
+          <Divider className={styles.splitLine} />
+          <Reader editor={blogInfo.editor} value={articleDetail} />
+        </>
+      )}
+    </div>
   )
 }

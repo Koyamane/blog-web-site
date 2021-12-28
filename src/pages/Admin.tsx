@@ -10,12 +10,11 @@ import React from 'react'
 import { useIntl } from 'umi'
 import { Card, Typography, Alert } from 'antd'
 import { HeartTwoTone, SmileTwoTone } from '@ant-design/icons'
-import MainContainer from '@/components/MainContainer'
 
 export default (): React.ReactNode => {
   const intl = useIntl()
   return (
-    <MainContainer>
+    <>
       <Card>
         <Alert
           message={intl.formatMessage({
@@ -41,6 +40,6 @@ export default (): React.ReactNode => {
         </a>
         。
       </p>
-    </MainContainer>
+    </>
   )
 }

@@ -236,7 +236,3 @@ RightContent 是以上几个组件的组合，同时新增了 plugins 的 `Selec
 | lineWidth    | 两点间连线的宽度   | number  | 1             |
 | follow       | 鼠标跟随           | boolean | true          |
 | mouseDist    | 鼠标与点之间的距离 | number  | 20000         |
-
-## MainContainer
-
-页面布局，api 参考 [PageContainer](https://procomponents.ant.design/components/page-container)

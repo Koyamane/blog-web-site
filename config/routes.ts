@@ -3,7 +3,7 @@
  * @Date: 2021-12-25 23:14:57
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-27 14:08:19
+ * @LastEditTime: 2021-12-28 13:26:08
  * @Description:
  */
 // 使用hide或不写name，都会导致菜单在页面上不显示
@@ -38,73 +38,80 @@
 
 export default [
   {
-    path: '/user',
-    layout: false,
+    path: '/',
+    component: '../layout',
     routes: [
       {
         path: '/user',
+        layout: false,
+        component: './User',
         routes: [
           {
             name: 'login',
             path: '/user/login',
-            component: './user/Login'
+            component: './User/Login'
+          },
+          {
+            name: 'register',
+            path: '/user/register',
+            component: './User/Register'
+          },
+          {
+            component: './Exception/404'
           }
         ]
       },
       {
-        component: './Exception/404'
-      }
-    ]
-  },
-  {
-    path: '/home',
-    name: 'home',
-    icon: 'home',
-    component: './Home'
-  },
-  {
-    path: '/admin',
-    name: 'admin',
-    icon: 'crown',
-    access: 'canAdmin',
-    routes: [
+        path: '/home',
+        name: 'home',
+        icon: 'home',
+        component: './Home'
+      },
       {
-        path: '/admin/sub-page',
-        name: 'sub-page',
-        icon: 'smile',
-        component: './Admin'
+        path: '/admin',
+        name: 'admin',
+        icon: 'crown',
+        access: 'canAdmin',
+        routes: [
+          {
+            path: '/admin/sub-page',
+            name: 'sub-page',
+            icon: 'smile',
+            component: './Admin'
+          },
+          {
+            component: './Exception/404'
+          }
+        ]
+      },
+      {
+        path: '/blog',
+        name: 'blog',
+        icon: 'read',
+        routes: [
+          {
+            path: '/blog/edit',
+            name: 'blog-edit',
+            component: './Blog/BlogEdit'
+          },
+          {
+            path: '/blog/post/:id',
+            hideInMenu: true,
+            name: 'blog-post',
+            component: './Blog/BlogPost'
+          },
+          {
+            component: './Exception/404'
+          }
+        ]
+      },
+      {
+        path: '/',
+        redirect: '/home'
       },
       {
         component: './Exception/404'
       }
     ]
-  },
-  {
-    path: '/blog',
-    name: 'blog',
-    icon: 'read',
-    routes: [
-      {
-        path: '/blog/edit',
-        name: 'blog-edit',
-        component: './Blog/BlogEdit'
-      },
-      {
-        path: '/blog/post/:id',
-        hideInMenu: true,
-        name: 'blog-post',
-        component: './Blog/BlogPost'
-      },
-      {
-        component: './Exception/404'
-      }
-    ]
-  },
-  {
-    path: '/',
-    redirect: '/home'
-  },
-  {
-    component: './Exception/404'
   }
 ]

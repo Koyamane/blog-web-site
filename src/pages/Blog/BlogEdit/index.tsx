@@ -9,7 +9,6 @@
 import React, { useState } from 'react'
 import { history, useIntl } from 'umi'
 import { Alert, Button, Form, Input, message, Select, Space } from 'antd'
-import MainContainer from '@/components/MainContainer'
 import useFormItemFillHint from '@/hooks/FormItemFillHint'
 import RichTextEditor from './components/RichTextEditor'
 import MarkdownEditor from './components/MarkdownEditor'
@@ -57,7 +56,7 @@ export default (): React.ReactNode => {
   }
 
   return (
-    <MainContainer>
+    <>
       <Alert
         banner
         showIcon={false}
@@ -125,6 +124,6 @@ export default (): React.ReactNode => {
           })}
         </Button>
       </Space>
-    </MainContainer>
+    </>
   )
 }

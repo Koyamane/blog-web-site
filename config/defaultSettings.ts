@@ -13,7 +13,7 @@ const Settings: LayoutSettings & {
   logo?: string
 } = {
   // 设置标题的 title
-  title: '小山音のWeb Site',
+  title: '山音曦',
   navTheme: 'light',
   primaryColor: '#FAAD14',
   layout: 'top',

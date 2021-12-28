@@ -8,7 +8,7 @@
  */
 import type { RequestConfig, RunTimeLayoutConfig } from 'umi'
 import { history } from 'umi'
-import type { Settings as LayoutSettings } from '@ant-design/pro-layout'
+import type { MenuDataItem, Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
@@ -72,7 +72,13 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
       //   history.push(loginPath)
       // }
     },
-    menuHeaderRender: undefined,
+    menuDataRender: (menuList: MenuDataItem[]): MenuDataItem[] => {
+      // 因为 routes.ts 中，最外层包了一层 {}，所以这里要去掉最外层，否则，菜单不会显示
+      // 包那一层的原因是要做全局 layout
+
+      return menuList[menuList.length - 1].routes || []
+    },
+    // menuHeaderRender: 左上角的
     // 自定义 403 页面
     // unAccessible: <div>unAccessible</div>,
     ...initialState?.settings
