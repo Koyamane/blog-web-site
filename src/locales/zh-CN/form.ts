@@ -10,7 +10,7 @@ export default {
   'pages.form.edit': '编辑',
   'pages.form.modify': '修改',
   'pages.form.delete': '删除',
-  'pages.form.hintSuffix': '为必填项',
+  'pages.form.hintSuffix': '是必填项',
   'pages.form.inputMsg': '请输入',
   'pages.form.selectMsg': '请选择',
   'pages.form.textareaMsg': '请填写',

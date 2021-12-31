@@ -1,22 +1,10 @@
 import { request } from 'umi'
+import { RegisterParams } from './data'
 
-export interface StateType {
-  status?: 'ok' | 'error'
-  currentAuthority?: 'user' | 'guest' | 'admin'
-}
-
-export interface UserRegisterParams {
-  mail: string
-  password: string
-  confirm: string
-  mobile: string
-  captcha: string
-  prefix: string
-}
-
-export async function fakeRegister(params: UserRegisterParams) {
-  return request('/api/register', {
-    method: 'POST',
-    data: params
-  })
+/**
+ * @description 注册
+ * @returns 返回当前用户信息以及token
+ */
+export const RegisterApi = (params: RegisterParams) => {
+  return request('/user/api/register', { method: 'post', data: params })
 }

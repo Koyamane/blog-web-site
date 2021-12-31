@@ -3,39 +3,39 @@
 
 declare namespace API {
   type PageParams = {
-    /** 默认精确查找，模糊查找请使用正则，例如 name: /小/ */
-    search?: Record<string>
+    dto?: Record<string, string>
+    searchMap?: {
+      [key: string]: {
+        opt: 'LIKE' | 'IN' | 'NOT_IN'
+        value: string
+      }
+    }
+    betweenMap?: Record<string, string[]>
+    /** 1是升序，-1是降序 */
+    sort?: Record<string, 1 | -1>
+    /** 过滤字段，为空不过滤，1显示，0不显示 */
+    filter?: Record<string, 1 | 0>
     current?: number
     pageSize?: number
-    /** 1是升序，-1是降序 */
-    sort?: {
-      [key: string]: 1 | -1
-    }
-    /** 过滤字段，为空不过滤，1显示，0不显示 */
-    filter?: {
-      [key: string]: 1 | 0
-    }
   }
 
   type CurrentUser = {
-    name?: string
+    username?: string
+    nickname?: string
     avatar?: string
-    userid?: string
-    email?: string
+    userId?: string
+    createdDate?: string
     signature?: string
-    title?: string
-    group?: string
-    tags?: { key?: string; label?: string }[]
+    tags?: string[]
     notifyCount?: number
     unreadCount?: number
-    country?: string
-    access?: string
-    geographic?: {
-      province?: { label?: string; key?: string }
-      city?: { label?: string; key?: string }
-    }
-    address?: string
+    email?: string
     phone?: string
+    country?: string
+    address?: string
+    access?: 'admin' | 'user'
+    province?: { label?: string; value?: string }
+    city?: { label?: string; value?: string }
   }
 
   type LoginResult = {
@@ -69,13 +69,6 @@ declare namespace API {
   type FakeCaptcha = {
     code?: number
     status?: string
-  }
-
-  type LoginParams = {
-    username?: string
-    password?: string
-    autoLogin?: boolean
-    type?: string
   }
 
   type ErrorResponse = {

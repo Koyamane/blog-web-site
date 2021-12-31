@@ -17,7 +17,7 @@ const useFormItemFillHint = () => {
     (labelId: string) => {
       return (
         <>
-          <FormattedMessage id={`pages.form.${labelId}`} />
+          <FormattedMessage id={`pages.${labelId}`} />
           <FormattedMessage id='pages.form.hintSuffix' />
         </>
       )

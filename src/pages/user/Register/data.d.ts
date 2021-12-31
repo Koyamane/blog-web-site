@@ -1,14 +1,14 @@
 /*
  * @Author: dingyun
- * @Date: 2021-12-28 14:22:05
+ * @Date: 2021-12-30 19:24:55
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-28 14:23:22
+ * @LastEditTime: 2021-12-30 19:25:42
  * @Description:
  */
-
-export interface LoginParams {
+export interface RegisterParams {
   username: string
   password: string
-  rememberMe?: boolean
+  confirm?: string
+  captcha?: string
 }

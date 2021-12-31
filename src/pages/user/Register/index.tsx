@@ -1,78 +1,164 @@
-import type { FC } from 'react'
-import { Button } from 'antd'
-import { Link } from 'umi'
-
+import { FC, useRef, useState } from 'react'
+import { Button, Col, Form, message, Row } from 'antd'
+import { FormattedMessage, history, Link, useIntl, useModel } from 'umi'
+import Captcha from 'react-captcha-code'
+import ProForm, { ProFormText } from '@ant-design/pro-form'
+import { aesEncrypt } from '@/utils/encryption'
+import { RegisterApi } from './service'
+import { RegisterParams } from './data'
 import styles from './index.less'
-import ProForm from '@ant-design/pro-form'
-
-// const FormItem = Form.Item
-
-// const passwordStatusMap = {
-//   ok: (
-//     <div className={styles.success}>
-//       <span>强度：强</span>
-//     </div>
-//   ),
-//   pass: (
-//     <div className={styles.warning}>
-//       <span>强度：中</span>
-//     </div>
-//   ),
-//   poor: (
-//     <div className={styles.error}>
-//       <span>强度：太短</span>
-//     </div>
-//   )
-// }
-
-// const passwordProgressMap: {
-//   ok: 'success';
-//   pass: 'normal';
-//   poor: 'exception';
-// } = {
-//   ok: 'success',
-//   pass: 'normal',
-//   poor: 'exception'
-// }
 
 const Register: FC = () => {
-  // const [count, setCount]: [number, any] = useState(0)
-  // const [visible, setVisible]: [boolean, any] = useState(false)
-  // const [prefix, setPrefix]: [string, any] = useState('86')
-  // const [popover, setPopover]: [boolean, any] = useState(false)
-  // const confirmDirty = false
-  // let interval: number | undefined
-  // const [form] = Form.useForm()
+  const { setInitialState } = useModel('@@initialState')
+  // 这个值是用来刷新页面的，为了让hint立刻更新
+  const [checkNow, setCheckNow]: [boolean, any] = useState(true)
+  const [btnLoading, setBtnLoading]: [boolean, any] = useState(false)
+  const [captcha, setCaptcha] = useState('')
+  const intl = useIntl()
+  const [form] = Form.useForm()
 
-  // useEffect(
-  //   () => () => {
-  //     clearInterval(interval)
-  //   },
-  //   [interval],
-  // )
+  const captchaRef = useRef<any>()
 
-  // const onGetCaptcha = () => {
-  //   let counts = 59
-  //   setCount(counts)
-  //   interval = window.setInterval(() => {
-  //     counts -= 1
-  //     setCount(counts)
-  //     if (counts === 0) {
-  //       clearInterval(interval)
-  //     }
-  //   }, 1000)
-  // }
+  const passwordHint = () => {
+    const value = form.getFieldValue('password')
 
-  // const getPasswordStatus = () => {
-  //   const value = form.getFieldValue('password')
-  //   if (value && value.length > 9) {
-  //     return 'ok'
-  //   }
-  //   if (value && value.length > 5) {
-  //     return 'pass'
-  //   }
-  //   return 'poor'
-  // }
+    if (!value) {
+      return undefined
+    }
+
+    if (value.length > 16) {
+      return (
+        <div className={styles.error}>
+          {intl.formatMessage({
+            id: 'pages.register.password.tooLong',
+            defaultMessage: '密码不能超过16个字符'
+          })}
+        </div>
+      )
+    }
+
+    if (value.length > 9) {
+      return (
+        <div className={styles.success}>
+          {intl.formatMessage({
+            id: 'pages.register.password.strongSafetyFactor',
+            defaultMessage: '安全系数：强'
+          })}
+        </div>
+      )
+    }
+
+    if (value.length > 5) {
+      return (
+        <div className={styles.warning}>
+          {intl.formatMessage({
+            id: 'pages.register.password.mediumSafetyFactor',
+            defaultMessage: '安全系数：中'
+          })}
+        </div>
+      )
+    }
+
+    return (
+      <div className={styles.error}>
+        {intl.formatMessage({
+          id: 'pages.register.password.weakSafetyFactor',
+          defaultMessage: '安全系数：弱'
+        })}
+      </div>
+    )
+  }
+
+  const checkConfirm = (_: any, value: string) => {
+    const promise = Promise
+    if (value && value !== form.getFieldValue('password')) {
+      return promise.reject(
+        <FormattedMessage
+          id='pages.register.confirmPassword.mismatch'
+          defaultMessage='两次输入的密码不匹配'
+        />
+      )
+    }
+    return promise.resolve()
+  }
+
+  // 校验用户名
+  const checkUsername = (_: any, value: string) => {
+    setCheckNow(!checkNow)
+
+    const promise = Promise
+
+    // 没有值的情况
+    if (!value) {
+      return promise.reject(
+        <FormattedMessage id='pages.register.username.noValue' defaultMessage='请输入用户名' />
+      )
+    }
+
+    // 非数字、字母、下划线时
+    if (!/^\w+$/.test(value)) {
+      return promise.reject(
+        <FormattedMessage
+          id='pages.register.username.wrongValue'
+          defaultMessage='有非数字、字母和下划线的字符'
+        />
+      )
+    }
+
+    if (value.length < 6) {
+      return promise.reject(
+        <FormattedMessage id='pages.register.username.tooShort' defaultMessage='用户名太短' />
+      )
+    }
+
+    if (value.length > 16) {
+      return promise.reject(
+        <FormattedMessage
+          id='pages.register.username.tooLong'
+          defaultMessage='用户名不能超过16个字符'
+        />
+      )
+    }
+
+    return promise.resolve()
+  }
+
+  // 校验密码
+  const checkPassword = (_: any, value: string) => {
+    setCheckNow(!checkNow)
+
+    const promise = Promise
+    // 没有值的情况
+    if (!value) {
+      return promise.reject(
+        <FormattedMessage id='pages.register.password.noValue' defaultMessage='请输入密码！' />
+      )
+    }
+
+    if (value.length < 6) {
+      return promise.reject(
+        <FormattedMessage id='pages.register.password.tooShort' defaultMessage='密码太短' />
+      )
+    }
+
+    if (value.length > 16) {
+      return promise.reject(
+        <FormattedMessage
+          id='pages.register.password.tooLong'
+          defaultMessage='密码不能超过16个字符'
+        />
+      )
+    }
+
+    if (value && form.getFieldValue('confirm')) {
+      // 这里必须异步，因为提交表单的时候会走一边校验，两个一直执行会有冲突
+      setTimeout(() => {
+        form.validateFields(['confirm'])
+      })
+    }
+
+    return promise.resolve()
+  }
 
   // const { loading: submitting, run: register } = useRequest<{ data: StateType }>(fakeRegister, {
   //   manual: true,
@@ -89,57 +175,77 @@ const Register: FC = () => {
   //   }
   // })
 
-  // const checkConfirm = (_: any, value: string) => {
-  //   const promise = Promise
-  //   if (value && value !== form.getFieldValue('password')) {
-  //     return promise.reject('两次输入的密码不匹配!')
-  //   }
-  //   return promise.resolve()
-  // }
+  const handleRegister = async (formData: RegisterParams) => {
+    if (formData.captcha !== captcha) {
+      message.error(
+        intl.formatMessage({
+          id: 'pages.register.captcha.errorMessage',
+          defaultMessage: '验证码错误'
+        })
+      )
 
-  // const checkPassword = (_: any, value: string) => {
-  //   const promise = Promise
-  //   // 没有值的情况
-  //   if (!value) {
-  //     setVisible(!!value)
-  //     return promise.reject('请输入密码!')
-  //   }
-  //   // 有值的情况
-  //   if (!visible) {
-  //     setVisible(!!value)
-  //   }
-  //   setPopover(!popover)
-  //   if (value.length < 6) {
-  //     return promise.reject('')
-  //   }
-  //   if (value && confirmDirty) {
-  //     form.validateFields(['confirm'])
-  //   }
-  //   return promise.resolve()
-  // }
+      form.setFields([
+        {
+          name: ['captcha'],
+          validating: true,
+          errors: [
+            (
+              <FormattedMessage
+                key='captcha'
+                id='pages.register.captcha.errorMessage'
+                defaultMessage='验证码错误'
+              />
+            ) as any
+          ]
+        }
+      ])
 
-  // const renderPasswordProgress = () => {
-  //   const value = form.getFieldValue('password')
-  //   const passwordStatus = getPasswordStatus()
-  //   return value && value.length ? (
-  //     <div className={styles[`progress-${passwordStatus}`]}>
-  //       <Progress
-  //         status={passwordProgressMap[passwordStatus]}
-  //         className={styles.progress}
-  //         strokeWidth={6}
-  //         percent={value.length * 10 > 100 ? 100 : value.length * 10}
-  //         showInfo={false}
-  //       />
-  //     </div>
-  //   ) : null
-  // }
+      captchaRef.current.refresh()
+      return
+    }
+
+    try {
+      setBtnLoading(true)
+
+      const res = await RegisterApi({
+        username: formData.username,
+        password: aesEncrypt(formData.password)
+      })
+
+      localStorage.setItem('token', res.token)
+      await setInitialState(s => ({
+        ...s,
+        currentUser: res.userInfo
+      }))
+
+      message.success(
+        intl.formatMessage({
+          id: 'pages.register.success',
+          defaultMessage: '注册成功！'
+        })
+      )
+
+      /** 此方法会跳转到 redirect 参数所在的位置 */
+      const { query } = history.location
+      const { redirect } = query as { redirect: string }
+      history.replace(redirect || '/')
+    } catch (error) {
+      message.error(
+        intl.formatMessage({
+          id: 'pages.register.failure',
+          defaultMessage: '注册失败，请重试！'
+        })
+      )
+      setBtnLoading(false)
+    }
+  }
 
   const submitBox = (props: any) => {
     return [
       <Button
         type='primary'
         key='register'
-        // loading={submitting}
+        loading={btnLoading}
         className={styles.submitButton}
         onClick={() => props.form?.submit?.()}
       >
@@ -158,96 +264,103 @@ const Register: FC = () => {
           <span className='ant-pro-form-login-logo'>
             <img alt='logo' src='/logo.svg' />
           </span>
-          <span className='ant-pro-form-login-title'>山音曦</span>
+          <span className='ant-pro-form-login-title'>
+            {intl.formatMessage({
+              id: 'pages.layouts.title',
+              defaultMessage: '山音曦'
+            })}
+          </span>
         </div>
-        <div className='ant-pro-form-login-desc'>注册属于你的专属账号</div>
+        <div className='ant-pro-form-login-desc'>
+          {intl.formatMessage({
+            id: 'pages.layouts.description',
+            defaultMessage: '一个极其小众的博客网站'
+          })}
+        </div>
       </div>
 
-      <div className='ant-pro-form-login-main'>
-        <ProForm
-          className={styles.form}
+      <div className={`ant-pro-form-login-main ${styles.main}`}>
+        <ProForm<RegisterParams>
           layout='vertical'
-          submitter={{
-            render: submitBox
-          }}
+          size='large'
+          form={form}
+          onFinish={handleRegister}
+          className={styles.form}
+          submitter={{ render: submitBox }}
         >
-          {/* <Popover
-            getPopupContainer={(node) => {
-              if (node && node.parentNode) {
-                return node.parentNode as HTMLElement
-              }
-              return node
-            }}
-            content={
-              visible && (
-                <div style={{ padding: '4px 0' }}>
-                  {passwordStatusMap[getPasswordStatus()]}
-                  {renderPasswordProgress()}
-                  <div style={{ marginTop: 10 }}>
-                    <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
-                  </div>
-                </div>
-              )
-            }
-            overlayStyle={{ width: 240 }}
-            placement="right"
-            visible={visible}
-          >
-            <FormItem
-              name="password"
-              className={
-                form.getFieldValue('password') &&
-                form.getFieldValue('password').length > 0 &&
-                styles.password
-              }
-              rules={[
-                {
-                  validator: checkPassword
-                }
-              ]}
-            >
-              <Input size="large" type="password" placeholder="至少6位密码，区分大小写" />
-            </FormItem>
-          </Popover>
-          <FormItem
-            name="confirm"
+          <ProFormText
+            name='username'
+            disabled={btnLoading}
+            fieldProps={{ size: 'large' }}
+            placeholder={intl.formatMessage({
+              id: 'pages.register.username',
+              defaultMessage: '用户名（仅限数字、字母和下划线）'
+            })}
+            rules={[{ validator: checkUsername }]}
+          />
+
+          <ProFormText.Password
+            name='password'
+            disabled={btnLoading}
+            help={passwordHint()}
+            fieldProps={{ size: 'large' }}
+            placeholder={intl.formatMessage({
+              id: 'pages.register.password',
+              defaultMessage: '密码（6~16位字符，区分大小写）'
+            })}
+            rules={[{ validator: checkPassword }]}
+          />
+
+          <ProFormText.Password
+            name='confirm'
+            disabled={btnLoading}
+            fieldProps={{ size: 'large' }}
+            placeholder={intl.formatMessage({
+              id: 'pages.register.confirmPassword',
+              defaultMessage: '确认密码'
+            })}
             rules={[
               {
                 required: true,
-                message: '确认密码'
+                message: (
+                  <FormattedMessage
+                    id='pages.register.confirmPassword.noValue'
+                    defaultMessage='请输入确认密码！'
+                  />
+                )
               },
-              {
-                validator: checkConfirm
-              }
+              { validator: checkConfirm }
             ]}
-          >
-            <Input size="large" type="password" placeholder="确认密码" />
-          </FormItem>
+          />
 
-          <Row gutter={8}>
+          <Row gutter={8} justify='space-between'>
             <Col span={16}>
-              <FormItem
-                name="captcha"
+              <ProFormText
+                name='captcha'
+                disabled={btnLoading}
+                fieldProps={{ size: 'large' }}
+                placeholder={intl.formatMessage({
+                  id: 'pages.register.captcha',
+                  defaultMessage: '验证码'
+                })}
                 rules={[
                   {
                     required: true,
-                    message: '请输入验证码!'
+                    message: (
+                      <FormattedMessage
+                        id='pages.register.captcha.noValue'
+                        defaultMessage='请输入验证码！'
+                      />
+                    )
                   }
                 ]}
-              >
-                <Input size="large" placeholder="验证码" />
-              </FormItem>
+              />
             </Col>
-            <Col span={8}>
-              <Button
-                size="large"
-                disabled={!!count}
-                onClick={onGetCaptcha}
-              >
-                {count ? `${count} s` : '获取验证码'}
-              </Button>
+
+            <Col>
+              <Captcha ref={captchaRef} charNum={6} onChange={setCaptcha} />
             </Col>
-          </Row> */}
+          </Row>
         </ProForm>
       </div>
     </div>

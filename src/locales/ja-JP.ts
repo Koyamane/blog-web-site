@@ -6,6 +6,7 @@ import pwa from './ja-JP/pwa'
 import component from './ja-JP/component'
 import pages from './ja-JP/pages'
 import form from './ja-JP/form'
+import account from './ja-JP/account'
 
 export default {
   'navBar.lang': '言語',
@@ -23,5 +24,6 @@ export default {
   ...pwa,
   ...component,
   ...pages,
-  ...form
+  ...form,
+  ...account
 }

@@ -70,7 +70,7 @@ export default (): React.ReactNode => {
         <Form.Item
           name='title'
           label={intl.formatMessage({ id: 'pages.form.itemTitle' })}
-          rules={[{ required: true, message: formItemFillHint('itemTitle') }]}
+          rules={[{ required: true, message: formItemFillHint('form.itemTitle') }]}
         >
           <Input placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })} />
         </Form.Item>

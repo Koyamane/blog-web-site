@@ -7,8 +7,9 @@
  * @Description:
  */
 import { notification } from 'antd'
-import { RequestConfig } from 'umi'
+import { RequestConfig, history } from 'umi'
 import { RequestOptionsInit, ResponseError } from 'umi-request'
+import { stringify } from 'querystring'
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -35,14 +36,41 @@ const codeMessage = {
 const errorHandler = async (error: ResponseError) => {
   const { response } = error
 
+  let data = { msg: '' }
+
+  try {
+    data = await response.clone().json()
+  } catch (err) {
+    console.log(err)
+  }
+
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.statusText
+    const errorText = data.msg || codeMessage[response.status] || response.statusText
     const { status } = response
 
-    notification.error({
-      message: `请求错误 ${status}`,
-      description: errorText
-    })
+    if (status === 401) {
+      notification.info({
+        message: '提示',
+        description: errorText
+      })
+
+      localStorage.clear()
+
+      const { search, pathname } = history.location
+      if (window.location.pathname !== '/user/login') {
+        history.push({
+          pathname: '/user/login',
+          search: stringify({
+            redirect: pathname + search
+          })
+        })
+      }
+    } else {
+      notification.error({
+        message: `请求错误 ${status}`,
+        description: errorText
+      })
+    }
   }
 
   if (!response) {
@@ -64,9 +92,16 @@ const requestConfig: RequestConfig = {
   requestInterceptors: [
     (url: string, options: RequestInit) => {
       const Authorization = localStorage.getItem('token')
-      let headers = { ...options.headers }
+      const csrfToken = sessionStorage.getItem('csrfToken')
+      let headers: any = {
+        ...options.headers,
+        'x-csrf-token': csrfToken
+      }
       if (Authorization) {
-        headers = { ...headers, Authorization: `Bearer ${Authorization}` }
+        headers = {
+          ...headers,
+          Authorization: `Bearer ${Authorization}`
+        }
       }
 
       return {

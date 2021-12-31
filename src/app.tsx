@@ -6,15 +6,15 @@
  * @LastEditTime: 2021-12-26 15:20:29
  * @Description:
  */
-import type { RequestConfig, RunTimeLayoutConfig } from 'umi'
+import { RequestConfig, RunTimeLayoutConfig } from 'umi'
 import { history } from 'umi'
 import type { MenuDataItem, Settings as LayoutSettings } from '@ant-design/pro-layout'
 import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
 import requestConfig from './requestConfig'
+import { GetCrsfKey, GetCurrentUserInfo } from './services/global'
 
-const queryCurrentUser: any = new Promise(r => r({}))
 const loginPath = '/user/login'
 
 /** 获取用户信息比较慢的时候会展示一个 loading */
@@ -32,16 +32,17 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const msg = await queryCurrentUser()
-      return msg.data
+      const userInfo = await GetCurrentUserInfo()
+      return userInfo
     } catch (error) {
       // history.push(loginPath)
+      console.log(error)
     }
     return undefined
   }
 
-  // 不是登录页面，就获取用户信息
-  if (history.location.pathname !== loginPath) {
+  // 不是登录页面且有token时，就获取用户信息
+  if (history.location.pathname !== loginPath && localStorage.getItem('token')) {
     const currentUser = await fetchUserInfo()
     return {
       fetchUserInfo,
@@ -54,6 +55,21 @@ export async function getInitialState(): Promise<{
     fetchUserInfo,
     settings: {}
   }
+}
+
+export async function render(oldRender: () => void) {
+  if (sessionStorage.getItem('csrfToken')) {
+    oldRender()
+    return
+  }
+
+  try {
+    const res = await GetCrsfKey()
+    sessionStorage.setItem('csrfToken', res)
+  } catch (error) {
+    console.log(error)
+  }
+  oldRender()
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout

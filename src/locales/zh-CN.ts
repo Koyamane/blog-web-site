@@ -6,6 +6,7 @@ import settingDrawer from './zh-CN/settingDrawer'
 import settings from './zh-CN/settings'
 import pages from './zh-CN/pages'
 import form from './zh-CN/form'
+import account from './zh-CN/account'
 
 export default {
   'navBar.lang': '语言',
@@ -23,5 +24,6 @@ export default {
   ...settings,
   ...pwa,
   ...component,
-  ...form
+  ...form,
+  ...account
 }

@@ -6,6 +6,7 @@ import pwa from './en-US/pwa'
 import settingDrawer from './en-US/settingDrawer'
 import settings from './en-US/settings'
 import form from './en-US/form'
+import account from './en-US/account'
 
 export default {
   'navBar.lang': 'Languages',
@@ -23,5 +24,6 @@ export default {
   ...pwa,
   ...component,
   ...pages,
-  ...form
+  ...form,
+  ...account
 }

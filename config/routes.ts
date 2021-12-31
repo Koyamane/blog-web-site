@@ -92,6 +92,7 @@ export default [
           {
             path: '/blog/edit',
             name: 'blog-edit',
+            wrappers: ['@/wrappers/auth'],
             component: './Blog/BlogEdit'
           },
           {
