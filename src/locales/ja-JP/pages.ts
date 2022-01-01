@@ -28,7 +28,7 @@ export default {
   'pages.register.password.tooShort': 'パスワードが短すぎます',
   'pages.register.password.tooLong': 'パスワードは16文字以内でなければなりません',
   'pages.register.password.strongSafetyFactor': '安全係数：強い',
-  'pages.register.password.mediumSafetyFactor': '安全係数：中',
+  'pages.register.password.mediumSafetyFactor': '安全係数：ミディアム',
   'pages.register.password.weakSafetyFactor': '安全係数：弱い',
   'pages.register.confirmPassword': '確認パスワード',
   'pages.register.confirmPassword.noValue': '確認パスワードを入力してください！',

@@ -9,7 +9,7 @@
 import { Space } from 'antd'
 import React from 'react'
 import { useModel, SelectLang } from 'umi'
-import NoticeIconView from '../NoticeIcon'
+// import NoticeIconView from '../NoticeIcon'
 import Avatar from './AvatarDropdown'
 import styles from './index.less'
 
@@ -30,7 +30,7 @@ const GlobalHeaderRight: React.FC = () => {
   }
   return (
     <Space className={className}>
-      <NoticeIconView />
+      {/* <NoticeIconView /> */}
       <Avatar menu />
       <SelectLang className={styles.action} reload={false} />
     </Space>

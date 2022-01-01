@@ -1,14 +1,27 @@
+/*
+ * @Author: dingyun
+ * @Date: 2021-12-26 23:46:07
+ * @LastEditors: dingyun
+ * @Email: dingyun@zhuosoft.com
+ * @LastEditTime: 2022-01-01 12:53:52
+ * @Description:
+ */
 export default {
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.blog': '博客',
-  'menu.blog.blog-edit': '发布博客',
-  'menu.blog.blog-post': '博文',
+  'menu.blog.edit': '发布博客',
+  'menu.blog.post': '博文',
   'menu.admin': '管理页',
   'menu.admin.sub-page': '二级管理页',
   'menu.login': '登录',
   'menu.register': '注册',
   'menu.register-result': '注册结果',
+  'menu.account': '个人页',
+  'menu.account.center': '个人中心',
+  'menu.account.settings': '个人设置',
+  'menu.account.trigger': '触发报错',
+  'menu.account.logout': '退出登录',
   'menu.dashboard': 'Dashboard',
   'menu.dashboard.analysis': '分析页',
   'menu.dashboard.monitor': '监控页',
@@ -42,11 +55,6 @@ export default {
   'menu.exception.not-find': '404',
   'menu.exception.server-error': '500',
   'menu.exception.trigger': '触发错误',
-  'menu.account': '个人页',
-  'menu.account.center': '个人中心',
-  'menu.account.settings': '个人设置',
-  'menu.account.trigger': '触发报错',
-  'menu.account.logout': '退出登录',
   'menu.editor': '图形编辑器',
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',

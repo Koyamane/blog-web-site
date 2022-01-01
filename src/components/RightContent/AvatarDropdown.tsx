@@ -45,7 +45,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       localStorage.clear()
     } catch (error) {
       console.log(error)
-      message.success(
+      message.error(
         intl.formatMessage({
           id: 'page.account.logOut.error',
           defaultMessage: '退出登录失败，请重试！'
@@ -62,9 +62,9 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
         loginOut()
         return
       }
-      // history.push(`/account/${key}`)
+      history.push(`/account/${key}`)
     },
-    [setInitialState]
+    [intl.locale, setInitialState]
   )
 
   const notLogin = (

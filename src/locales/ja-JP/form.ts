@@ -16,5 +16,7 @@ export default {
   'pages.form.textareaMsg': '記入してください',
   'pages.form.itemTitle': 'タイトル',
   'pages.form.itemTag': 'タグ',
-  'pages.form.itemEditor': 'エディタ'
+  'pages.form.itemEditor': 'エディタ',
+  'pages.form.modify.success': '変更成功！',
+  'pages.form.modify.error': '変更失敗、再試行してください！'
 }

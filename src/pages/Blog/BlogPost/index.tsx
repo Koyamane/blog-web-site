@@ -3,10 +3,10 @@
  * @Date: 2021-12-22 11:12:27
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-27 13:29:48
+ * @LastEditTime: 2022-01-01 14:02:12
  * @Description:
  */
-import React, { FunctionComponent, useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'umi'
 import { Divider, message, Space, Tag } from 'antd'
 import moment from 'moment'
@@ -17,18 +17,12 @@ import {
   StarOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import IconText from '@/components/IconText'
 import MarkdownReader from './components/MarkdownReader'
 import RichTextReader from './components/RichTextReader'
 import { BlogInfoApi } from './services'
 import { BlogInfoType } from '../BlogEdit/data'
 import styles from './index.less'
-
-const IconText = ({ icon, text }: { icon: FunctionComponent<any>; text: string | number }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-)
 
 const Reader = ({ editor, value }: { editor: BlogInfoType['editor']; value: string }) =>
   editor === 'MARKDOWN' ? <MarkdownReader mdValue={value} /> : <RichTextReader value={value} />

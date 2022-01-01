@@ -26,17 +26,37 @@ declare namespace API {
     userId?: string
     createdDate?: string
     signature?: string
+    post?: string
     tags?: string[]
     notifyCount?: number
     unreadCount?: number
     email?: string
     phone?: string
-    country?: string
+    country?: { label?: string; value?: string }
+    area?: string[]
     address?: string
     access?: 'admin' | 'user'
-    province?: { label?: string; value?: string }
-    city?: { label?: string; value?: string }
   }
+
+  type BlogInfo = {
+    id: number | string
+    createdName: string
+    createdId: string
+    createdAvatar: string
+    createdDate: string
+    title: string
+    content: string
+    previewImg: string
+    tags: string[]
+    reads: number
+    likes: number
+    collections: number
+  }
+
+  type UpdateCurrentUser = Omit<
+    CurrentUser,
+    'username' | 'userId' | 'createdDate' | 'access' | 'notifyCount' | 'unreadCount'
+  >
 
   type LoginResult = {
     status?: string

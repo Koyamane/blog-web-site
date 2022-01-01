@@ -25,6 +25,14 @@ export const GetCurrentUserInfo = () => {
 }
 
 /**
+ * @description 获取当前用户信息
+ * @returns Promise
+ */
+export const UpdateCurrentUser = (params: API.UpdateCurrentUser) => {
+  return request('/user/api/current/update', { method: 'put', data: params })
+}
+
+/**
  * @description 退出登录
  * @returns Promise
  */

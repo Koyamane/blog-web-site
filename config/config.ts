@@ -54,6 +54,9 @@ export default defineConfig({
       defer: true
     }
   ],
+  request: {
+    dataField: ''
+  },
   // esbuild is father build tools
   // https://umijs.org/plugins/plugin-esbuild
   esbuild: {},

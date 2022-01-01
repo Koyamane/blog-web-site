@@ -225,14 +225,35 @@ RightContent 是以上几个组件的组合，同时新增了 plugins 的 `Selec
 
 ### SiteBackground API
 
-| 参数         | 说明               | 类型    | 默认值        |
-| ------------ | ------------------ | ------- | ------------- |
-| count        | 点的数量           | number  | 88            |
-| pointR       | 点的半径           | number  | 1             |
-| pointColor   | 点的颜色           | string  | 114, 114, 114 |
-| pointOpacity | 点的透明度         | number  | 1             |
-| dist         | 两点相连的最大距离 | number  | 6000          |
-| lineColor    | 两点间连线的颜色   | string  | 0, 0, 0       |
-| lineWidth    | 两点间连线的宽度   | number  | 1             |
-| follow       | 鼠标跟随           | boolean | true          |
-| mouseDist    | 鼠标与点之间的距离 | number  | 20000         |
+| 参数         | 说明               | 类型      | 默认值          |
+| ------------ | ------------------ | --------- | --------------- |
+| count        | 点的数量           | `number`  | `88`            |
+| pointR       | 点的半径           | `number`  | `1`             |
+| pointColor   | 点的颜色           | `string`  | `114, 114, 114` |
+| pointOpacity | 点的透明度         | `number`  | `1`             |
+| dist         | 两点相连的最大距离 | `number`  | `6000`          |
+| lineColor    | 两点间连线的颜色   | `string`  | `0, 0, 0`       |
+| lineWidth    | 两点间连线的宽度   | `number`  | `1`             |
+| follow       | 鼠标跟随           | `boolean` | `true`          |
+| mouseDist    | 鼠标与点之间的距离 | `number`  | `20000`         |
+
+## IconText
+
+图标文字并排显示
+
+### IconText API
+
+| 参数 | 说明              | 类型                   | 默认值 |
+| ---- | ----------------- | ---------------------- | ------ |
+| icon | antd 的 icon 组件 | FunctionComponent<any> | -      |
+| text | 文件              | React.ReactNode        | -      |
+
+```tsx | pure
+import React from 'react'
+import { SmileOutlined } from '@ant-design/icons'
+import IconText from '@/components/IconText'
+
+const Text: React.FC = () => {
+  return <IconText icon={SmileOutlined} text='测试' />
+}
+```

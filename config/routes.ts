@@ -3,7 +3,7 @@
  * @Date: 2021-12-25 23:14:57
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-28 13:26:08
+ * @LastEditTime: 2022-01-01 12:53:53
  * @Description:
  */
 // 使用hide或不写name，都会导致菜单在页面上不显示
@@ -91,15 +91,37 @@ export default [
         routes: [
           {
             path: '/blog/edit',
-            name: 'blog-edit',
+            name: 'edit',
             wrappers: ['@/wrappers/auth'],
             component: './Blog/BlogEdit'
           },
           {
             path: '/blog/post/:id',
             hideInMenu: true,
-            name: 'blog-post',
+            name: 'post',
             component: './Blog/BlogPost'
+          },
+          {
+            component: './Exception/404'
+          }
+        ]
+      },
+      {
+        path: '/account',
+        name: 'account',
+        hideInMenu: true,
+        routes: [
+          {
+            path: '/account/center',
+            name: 'center',
+            wrappers: ['@/wrappers/auth'],
+            component: './Account/Center'
+          },
+          {
+            path: '/account/settings',
+            name: 'settings',
+            wrappers: ['@/wrappers/auth'],
+            component: './Account/Settings'
           },
           {
             component: './Exception/404'

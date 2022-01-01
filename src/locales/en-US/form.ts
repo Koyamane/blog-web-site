@@ -16,5 +16,7 @@ export default {
   'pages.form.textareaMsg': 'Please fill in',
   'pages.form.itemTitle': 'Title',
   'pages.form.itemTag': 'Tag',
-  'pages.form.itemEditor': 'Editor'
+  'pages.form.itemEditor': 'Editor',
+  'pages.form.modify.success': 'Modify successful!',
+  'pages.form.modify.error': 'Modify failed, please try again!'
 }

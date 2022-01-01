@@ -1,27 +1,18 @@
-/*
- * @Author: dingyun
- * @Date: 2021-12-12 14:08:47
- * @LastEditors: dingyun
- * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-01 19:33:47
- * @Description:
- */
-
 import React, { useEffect, useState } from 'react'
-import { NavLink, useIntl } from 'umi'
+import { connect, Dispatch, NavLink, useIntl } from 'umi'
+import { List, Tag } from 'antd'
 import moment from 'moment'
-import { Avatar, List, Tag } from 'antd'
+import { LikeOutlined, StarOutlined, EyeOutlined, ClockCircleOutlined } from '@ant-design/icons'
 import IconText from '@/components/IconText'
-import {
-  ClockCircleOutlined,
-  EyeOutlined,
-  LikeOutlined,
-  StarOutlined,
-  UserOutlined
-} from '@ant-design/icons'
-import { BlogPageApi } from '../services'
+import { SomebodyBlogPage } from '../../service'
+import styles from './index.less'
 
-const HomeList: React.FC = () => {
+interface SelfProps {
+  dispatch: Dispatch
+  userId?: API.CurrentUser['userId']
+}
+
+const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
   const intl = useIntl()
   const [listLoading, setBistLoading] = useState(true)
   const [blogData, setBlogData] = useState<{
@@ -55,7 +46,7 @@ const HomeList: React.FC = () => {
   const getBlogList = async (current: number = 1) => {
     setBistLoading(true)
     try {
-      const res = await BlogPageApi({ current })
+      const res = await SomebodyBlogPage(userId, { current })
       if (res) {
         setBlogData({
           list: res.list,
@@ -64,9 +55,13 @@ const HomeList: React.FC = () => {
             total: res.total
           }
         })
+        dispatch({
+          type: 'AccountCenter/setArticlesNum',
+          articlesNum: res.total
+        })
       }
     } catch (error) {
-      console.log('获取首页博客报错了', error)
+      console.log('获取博客报错了', error)
     }
     setBistLoading(false)
   }
@@ -77,7 +72,7 @@ const HomeList: React.FC = () => {
 
   return (
     <List
-      className='home-list'
+      className={styles.blogList}
       size='large'
       loading={listLoading}
       itemLayout='vertical'
@@ -86,7 +81,7 @@ const HomeList: React.FC = () => {
         itemRender,
         onChange: getBlogList
       }}
-      dataSource={blogData.list}
+      dataSource={blogData?.list}
       renderItem={item => (
         <List.Item
           key={item.id}
@@ -103,11 +98,10 @@ const HomeList: React.FC = () => {
           extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
         >
           <List.Item.Meta
-            avatar={<Avatar src={item.createdAvatar} icon={<UserOutlined />} />}
             title={<NavLink to={`/blog/post/${item.id}`}>{item.title}</NavLink>}
             description={item.tags.length > 0 && item.tags.map(tag => <Tag key={tag}>{tag}</Tag>)}
           />
-          <div className='home-list-item-content'>
+          <div className='blog-list-item-content'>
             {item.content && item.content.replace(/<[^>]+>/g, '')}
           </div>
         </List.Item>
@@ -116,4 +110,4 @@ const HomeList: React.FC = () => {
   )
 }
 
-export default HomeList
+export default connect()(Articles)

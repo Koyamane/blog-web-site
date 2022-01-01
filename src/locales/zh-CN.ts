@@ -3,7 +3,6 @@ import globalHeader from './zh-CN/globalHeader'
 import menu from './zh-CN/menu'
 import pwa from './zh-CN/pwa'
 import settingDrawer from './zh-CN/settingDrawer'
-import settings from './zh-CN/settings'
 import pages from './zh-CN/pages'
 import form from './zh-CN/form'
 import account from './zh-CN/account'
@@ -21,7 +20,6 @@ export default {
   ...globalHeader,
   ...menu,
   ...settingDrawer,
-  ...settings,
   ...pwa,
   ...component,
   ...form,
