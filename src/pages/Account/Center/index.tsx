@@ -19,7 +19,7 @@ const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
         key: 'articles',
         tab: (
           <>
-            <FormattedMessage id='page.account.menuMap.articles' defaultMessage='文章' />
+            <FormattedMessage id='pages.account.menuMap.articles' defaultMessage='文章' />
             <span style={{ fontSize: 14 }}>({articlesNum})</span>
           </>
         )
@@ -77,7 +77,7 @@ const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
 
                 <div className={styles.tags}>
                   <div className={styles.tagsTitle}>
-                    <FormattedMessage id='page.account.basic.tags' defaultMessage='标签' />
+                    <FormattedMessage id='pages.account.basic.tags' defaultMessage='标签' />
                   </div>
                   {currentUser.tags && currentUser.tags.map(item => <Tag key={item}>{item}</Tag>)}
                 </div>

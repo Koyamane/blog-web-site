@@ -1,5 +1,5 @@
-import React from 'react'
-import { message } from 'antd'
+import React, { useState } from 'react'
+import { Button, message } from 'antd'
 import { FormattedMessage, useIntl, useModel } from 'umi'
 import ProForm, {
   ProFormCascader,
@@ -16,7 +16,7 @@ import styles from './BaseView.less'
 const AvatarView = ({ avatar }: { avatar?: string }) => (
   <>
     <div className={styles.avatar_title}>
-      <FormattedMessage id='page.account.basic.avatar' defaultMessage='头像' />
+      <FormattedMessage id='pages.account.basic.avatar' defaultMessage='头像' />
     </div>
     <div className={styles.avatar}>
       <img src={avatar} alt='avatar' />
@@ -25,7 +25,7 @@ const AvatarView = ({ avatar }: { avatar?: string }) => (
       <div className={styles.button_view}>
         <Button>
           <UploadOutlined />
-          <FormattedMessage id='page.account.basic.change-avatar' defaultMessage='更换头像' />
+          <FormattedMessage id='pages.account.basic.change-avatar' defaultMessage='更换头像' />
         </Button>
       </div>
     </Upload> */}
@@ -34,15 +34,17 @@ const AvatarView = ({ avatar }: { avatar?: string }) => (
 
 const BaseView: React.FC = () => {
   const intl = useIntl()
+  const [btnLoading, setBtnLoading] = useState(false)
   const { initialState, setInitialState } = useModel('@@initialState')
   const currentUser = initialState?.currentUser
 
   const handleFinish = async (formData: API.UpdateCurrentUser) => {
+    setBtnLoading(true)
     try {
       await UpdateCurrentUser({ ...formData })
-      message.error(
+      message.success(
         intl.formatMessage({
-          id: 'page.account.update.success',
+          id: 'pages.account.update.success',
           defaultMessage: '更新基本信息成功！'
         })
       )
@@ -57,11 +59,29 @@ const BaseView: React.FC = () => {
     } catch (error) {
       message.error(
         intl.formatMessage({
-          id: 'page.account.update.error',
+          id: 'pages.account.update.error',
           defaultMessage: '更新失败，请重试！'
         })
       )
     }
+    setBtnLoading(false)
+  }
+
+  const submitBox = (props: any) => {
+    return [
+      <Button key='reset' disabled={btnLoading} onClick={() => props.form?.resetFields?.()}>
+        {intl.formatMessage({
+          id: 'pages.form.reset',
+          defaultMessage: '重置'
+        })}
+      </Button>,
+      <Button key='submit' type='primary' htmlType='submit' loading={btnLoading}>
+        {intl.formatMessage({
+          id: 'pages.account.basic.update',
+          defaultMessage: '更新基本信息'
+        })}
+      </Button>
+    ]
   }
 
   return (
@@ -73,15 +93,14 @@ const BaseView: React.FC = () => {
           onFinish={handleFinish}
           initialValues={{ ...currentUser }}
           submitter={{
-            // 为了让提交跟重置换个位置
-            render: (props, doms) => doms
+            render: submitBox
           }}
         >
           <ProFormText
             width='md'
             name='nickname'
             label={intl.formatMessage({
-              id: 'page.account.basic.nickname',
+              id: 'pages.account.basic.nickname',
               defaultMessage: '昵称'
             })}
             rules={[
@@ -89,7 +108,7 @@ const BaseView: React.FC = () => {
                 required: true,
                 message: (
                   <FormattedMessage
-                    id='page.account.basic.nickname-message'
+                    id='pages.account.basic.nickname-message'
                     defaultMessage='请输入您的昵称！'
                   />
                 )
@@ -97,10 +116,19 @@ const BaseView: React.FC = () => {
             ]}
           />
 
+          <ProFormText
+            width='md'
+            name='post'
+            label={intl.formatMessage({
+              id: 'pages.account.basic.post',
+              defaultMessage: '职位'
+            })}
+          />
+
           <ProFormTextArea
             name='signature'
             label={intl.formatMessage({
-              id: 'page.account.basic.signature',
+              id: 'pages.account.basic.signature',
               defaultMessage: '个性签名'
             })}
             placeholder='请填写'
@@ -109,7 +137,7 @@ const BaseView: React.FC = () => {
           <ProFormSelect
             name='tags'
             label={intl.formatMessage({
-              id: 'page.account.basic.tags',
+              id: 'pages.account.basic.tags',
               defaultMessage: '标签'
             })}
             mode='tags'
@@ -120,7 +148,7 @@ const BaseView: React.FC = () => {
             width='sm'
             name='country'
             label={intl.formatMessage({
-              id: 'page.account.basic.country',
+              id: 'pages.account.basic.country',
               defaultMessage: '国家/地区'
             })}
             allowClear={false}
@@ -135,7 +163,7 @@ const BaseView: React.FC = () => {
           <ProFormCascader
             name='area'
             label={intl.formatMessage({
-              id: 'page.account.basic.geographic',
+              id: 'pages.account.basic.geographic',
               defaultMessage: '省市区'
             })}
             fieldProps={{
@@ -148,7 +176,7 @@ const BaseView: React.FC = () => {
             width='md'
             name='address'
             label={intl.formatMessage({
-              id: 'page.account.basic.address',
+              id: 'pages.account.basic.address',
               defaultMessage: '街道地址'
             })}
           />

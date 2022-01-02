@@ -9,10 +9,8 @@ export default (props: IRouteComponentProps) => {
     location: { pathname }
   } = props
 
-  switch (pathname) {
-    case '/user/login':
-    case '/user/register':
-      return children
+  if (/^\/user\//.test(pathname)) {
+    return children
   }
 
   return (

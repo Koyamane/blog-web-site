@@ -36,7 +36,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       await LogOutApi()
       message.success(
         intl.formatMessage({
-          id: 'page.account.logOut.success',
+          id: 'pages.account.logOut.success',
           defaultMessage: '退出登录成功！'
         })
       )
@@ -47,7 +47,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       console.log(error)
       message.error(
         intl.formatMessage({
-          id: 'page.account.logOut.error',
+          id: 'pages.account.logOut.error',
           defaultMessage: '退出登录失败，请重试！'
         })
       )
@@ -72,7 +72,7 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       <Avatar size='small' className={styles.avatar} icon={<UserOutlined />} alt='avatar' />
       <span className={`${styles.name} anticon`}>
         {intl.formatMessage({
-          id: 'page.account.notLoggedIn',
+          id: 'pages.account.notLoggedIn',
           defaultMessage: '未登录'
         })}
       </span>
@@ -94,20 +94,20 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
       {menu && (
         <Menu.Item key='center'>
           <UserOutlined />
-          <FormattedMessage id='page.account.center' defaultMessage='个人中心' />
+          <FormattedMessage id='pages.account.center' defaultMessage='个人中心' />
         </Menu.Item>
       )}
       {menu && (
         <Menu.Item key='settings'>
           <SettingOutlined />
-          <FormattedMessage id='page.account.settings' defaultMessage='个人设置' />
+          <FormattedMessage id='pages.account.settings' defaultMessage='个人设置' />
         </Menu.Item>
       )}
       {menu && <Menu.Divider />}
 
       <Menu.Item key='logout'>
         <LogoutOutlined />
-        <FormattedMessage id='page.account.logOut' defaultMessage='退出登录' />
+        <FormattedMessage id='pages.account.logOut' defaultMessage='退出登录' />
       </Menu.Item>
     </Menu>
   )

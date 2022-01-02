@@ -52,14 +52,14 @@ const Login: React.FC = () => {
     }
   }
 
-  const submitBox = (props: any) => {
+  const submitBox = () => {
     return [
       <Button
         key='submit'
         type='primary'
+        htmlType='submit'
         loading={btnLoading}
         className={styles.submitButton}
-        onClick={() => props.form?.submit?.()}
       >
         {intl.formatMessage({
           id: 'pages.login.submit',

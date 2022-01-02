@@ -19,11 +19,11 @@ const Settings: React.FC = () => {
 
   const menuMap: Record<string, React.ReactNode> = {
     base: intl.formatMessage({
-      id: 'page.account.menuMap.basic',
+      id: 'pages.account.menuMap.basic',
       defaultMessage: '基本设置'
     }),
     security: intl.formatMessage({
-      id: 'page.account.menuMap.security',
+      id: 'pages.account.menuMap.security',
       defaultMessage: '安全设置'
     })
   }

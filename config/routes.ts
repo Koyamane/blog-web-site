@@ -57,6 +57,11 @@ export default [
             component: './User/Register'
           },
           {
+            name: 'register-result',
+            path: '/user/register/result',
+            component: './User/RegisterResult'
+          },
+          {
             component: './Exception/404'
           }
         ]

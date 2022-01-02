@@ -9,23 +9,24 @@
 import React from 'react'
 import { List } from 'antd'
 import { FormattedMessage, useIntl } from 'umi'
+import ModifyPassword from './ModifyPassword'
 
 type Unpacked<T> = T extends (infer U)[] ? U : T
 
 const passwordStrength = {
   strong: (
     <span className='strong'>
-      <FormattedMessage id='page.account.security.strong' defaultMessage='强' />
+      <FormattedMessage id='pages.account.security.strong' defaultMessage='强' />
     </span>
   ),
   medium: (
     <span className='medium'>
-      <FormattedMessage id='page.account.security.medium' defaultMessage='中' />
+      <FormattedMessage id='pages.account.security.medium' defaultMessage='中' />
     </span>
   ),
   weak: (
     <span className='weak'>
-      <FormattedMessage id='page.account.security.weak' defaultMessage='弱' />
+      <FormattedMessage id='pages.account.security.weak' defaultMessage='弱' />
     </span>
   )
 }
@@ -36,26 +37,19 @@ const SecurityView: React.FC = () => {
   const data = [
     {
       title: intl.formatMessage({
-        id: 'page.account.security.password',
+        id: 'pages.account.security.password',
         defaultMessage: '账户密码'
       }),
       description: (
         <>
           {intl.formatMessage({
-            id: 'page.account.security.password-description',
+            id: 'pages.account.security.password-description',
             defaultMessage: '当前密码强度：'
           })}
           {passwordStrength.strong}
         </>
       ),
-      actions: [
-        <a key='Modify'>
-          {intl.formatMessage({
-            id: 'page.account.security.modify',
-            defaultMessage: '修改'
-          })}
-        </a>
-      ]
+      actions: [<ModifyPassword key='modify-password' />]
     }
     // {
     //   title: '密保手机',

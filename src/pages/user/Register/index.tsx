@@ -71,7 +71,8 @@ const Register: FC = () => {
 
   const checkConfirm = (_: any, value: string) => {
     const promise = Promise
-    if (value && value !== form.getFieldValue('password')) {
+    const password = form.getFieldValue('password')
+    if (value && password && value !== password) {
       return promise.reject(
         <FormattedMessage
           id='pages.register.confirmPassword.mismatch'
@@ -127,7 +128,15 @@ const Register: FC = () => {
   const checkPassword = (_: any, value: string) => {
     setCheckNow(!checkNow)
 
+    if (value && form.getFieldValue('confirm')) {
+      // 这里必须异步，因为提交表单的时候会走一边校验，两个一直执行会有冲突
+      setTimeout(() => {
+        form.validateFields(['confirm'])
+      })
+    }
+
     const promise = Promise
+
     // 没有值的情况
     if (!value) {
       return promise.reject(
@@ -150,30 +159,8 @@ const Register: FC = () => {
       )
     }
 
-    if (value && form.getFieldValue('confirm')) {
-      // 这里必须异步，因为提交表单的时候会走一边校验，两个一直执行会有冲突
-      setTimeout(() => {
-        form.validateFields(['confirm'])
-      })
-    }
-
     return promise.resolve()
   }
-
-  // const { loading: submitting, run: register } = useRequest<{ data: StateType }>(fakeRegister, {
-  //   manual: true,
-  //   onSuccess: (data, params) => {
-  //     if (data.status === 'ok') {
-  //       message.success('注册成功！')
-  //       history.push({
-  //         pathname: '/user/register-result',
-  //         state: {
-  //           account: params.email
-  //         }
-  //       })
-  //     }
-  //   }
-  // })
 
   const handleRegister = async (formData: RegisterParams) => {
     if (formData.captcha !== captcha) {
@@ -225,10 +212,7 @@ const Register: FC = () => {
         })
       )
 
-      /** 此方法会跳转到 redirect 参数所在的位置 */
-      const { query } = history.location
-      const { redirect } = query as { redirect: string }
-      history.replace(redirect || '/')
+      history.replace('/user/register/result')
     } catch (error) {
       message.error(
         intl.formatMessage({
@@ -240,14 +224,14 @@ const Register: FC = () => {
     }
   }
 
-  const submitBox = (props: any) => {
+  const submitBox = () => {
     return [
       <Button
         type='primary'
         key='register'
+        htmlType='submit'
         loading={btnLoading}
         className={styles.submitButton}
-        onClick={() => props.form?.submit?.()}
       >
         <span>注册</span>
       </Button>,
