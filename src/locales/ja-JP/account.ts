@@ -15,6 +15,8 @@ export default {
   'pages.account.basic.tags': 'タグ',
   'pages.account.basic.post': 'ポジション',
   'pages.account.basic.avatar': 'アバター',
+  'pages.account.basic.avatar.success': '変更成功！',
+  'pages.account.basic.avatar.error': '変更失敗、再試行してください！',
   'pages.account.basic.change-avatar': 'アバターを変更する',
   'pages.account.basic.signature': '署名',
   'pages.account.basic.email': 'メール',

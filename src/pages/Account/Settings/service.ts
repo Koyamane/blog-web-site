@@ -15,3 +15,11 @@ import { request } from 'umi'
 export const UpdatePasswordApi = (password: string) => {
   return request('/user/api/current/update/passowrd', { method: 'put', data: { password } })
 }
+
+/**
+ * @description 修改当前用户头像
+ * @returns Promise
+ */
+export const UpdateAvatarApi = (file: FormData) => {
+  return request('/upload/api/avatar', { method: 'put', data: file })
+}

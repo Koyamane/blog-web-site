@@ -18,5 +18,6 @@ export default {
   'pages.form.itemTag': '标签',
   'pages.form.itemEditor': '编辑器',
   'pages.form.modify.success': '修改成功！',
-  'pages.form.modify.error': '修改失败，请重试！'
+  'pages.form.modify.error': '修改失败，请重试！',
+  'pages.form.editImage': '编辑图片'
 }

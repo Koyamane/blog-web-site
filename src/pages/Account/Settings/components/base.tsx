@@ -8,29 +8,9 @@ import ProForm, {
   ProFormTextArea
 } from '@ant-design/pro-form'
 import { UpdateCurrentUser } from '@/services/global'
+import AvatarCrop from './AvatarCrop'
 import ChinaCityTree from '../geographic/china.json'
-
 import styles from './BaseView.less'
-
-// 头像组件 方便以后独立，增加裁剪之类的功能
-const AvatarView = ({ avatar }: { avatar?: string }) => (
-  <>
-    <div className={styles.avatar_title}>
-      <FormattedMessage id='pages.account.basic.avatar' defaultMessage='头像' />
-    </div>
-    <div className={styles.avatar}>
-      <img src={avatar} alt='avatar' />
-    </div>
-    {/* <Upload showUploadList={false}>
-      <div className={styles.button_view}>
-        <Button>
-          <UploadOutlined />
-          <FormattedMessage id='pages.account.basic.change-avatar' defaultMessage='更换头像' />
-        </Button>
-      </div>
-    </Upload> */}
-  </>
-)
 
 const BaseView: React.FC = () => {
   const intl = useIntl()
@@ -184,7 +164,7 @@ const BaseView: React.FC = () => {
       </div>
 
       <div className={styles.right}>
-        <AvatarView avatar={currentUser?.avatar} />
+        <AvatarCrop />
       </div>
     </div>
   )

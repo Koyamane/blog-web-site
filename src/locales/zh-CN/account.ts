@@ -15,6 +15,8 @@ export default {
   'pages.account.basic.tags': '标签',
   'pages.account.basic.post': '职位',
   'pages.account.basic.avatar': '头像',
+  'pages.account.basic.avatar.success': '更换头像成功！',
+  'pages.account.basic.avatar.error': '更换失败，请重试！',
   'pages.account.basic.change-avatar': '更换头像',
   'pages.account.basic.signature': '个性签名',
   'pages.account.basic.email': '邮箱',

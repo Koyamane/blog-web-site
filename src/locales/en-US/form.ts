@@ -18,5 +18,6 @@ export default {
   'pages.form.itemTag': 'Tag',
   'pages.form.itemEditor': 'Editor',
   'pages.form.modify.success': 'Modify successful!',
-  'pages.form.modify.error': 'Modify failed, please try again!'
+  'pages.form.modify.error': 'Modify failed, please try again!',
+  'pages.form.editImage': 'Edit image'
 }

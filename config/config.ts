@@ -50,7 +50,7 @@ export default defineConfig({
   },
   scripts: [
     {
-      src: 'https://cdnjs.cloudflare.com/ajax/libs/canvas-nest.js/1.0.1/canvas-nest.js',
+      src: '/js/canvas-nest.min.js',
       defer: true
     }
   ],

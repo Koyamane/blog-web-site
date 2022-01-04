@@ -18,5 +18,6 @@ export default {
   'pages.form.itemTag': 'タグ',
   'pages.form.itemEditor': 'エディタ',
   'pages.form.modify.success': '変更成功！',
-  'pages.form.modify.error': '変更失敗、再試行してください！'
+  'pages.form.modify.error': '変更失敗、再試行してください！',
+  'pages.form.editImage': '画像カット'
 }

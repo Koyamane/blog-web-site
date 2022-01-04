@@ -15,6 +15,8 @@ export default {
   'pages.account.basic.tags': 'Tags',
   'pages.account.basic.post': 'Position',
   'pages.account.basic.avatar': 'Avatar',
+  'pages.account.basic.avatar.success': 'Change avatar successful!',
+  'pages.account.basic.avatar.error': 'Change avatar failed, please try again!',
   'pages.account.basic.change-avatar': 'Change avatar',
   'pages.account.basic.signature': 'Signature',
   'pages.account.basic.email': 'Email',
