@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
+    "outDir": "build/yamanesi",
     "module": "esnext",
     "target": "esnext",
     "lib": ["esnext", "dom"],
@@ -37,5 +37,5 @@
     "jest.config.js",
     "mock/*"
   ],
-  "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
+  "exclude": ["node_modules", "build", "yamanesi", "scripts", "src/.umi/*", "webpack", "jest"]
 }

@@ -6,9 +6,9 @@
  * @LastEditTime: 2022-01-01 14:02:12
  * @Description:
  */
-import React, { useEffect, useMemo, useState } from 'react'
-import { useLocation } from 'umi'
-import { Divider, message, Space, Tag } from 'antd'
+import React, { useMemo } from 'react'
+import { Link, useLocation, useRequest } from 'umi'
+import { Divider, Space, Spin, Tag } from 'antd'
 import moment from 'moment'
 import {
   ClockCircleOutlined,
@@ -29,65 +29,59 @@ const Reader = ({ editor, value }: { editor: BlogInfoType['editor']; value: stri
 
 export default (): React.ReactNode => {
   const { pathname } = useLocation()
-  const [blogInfo, setBlogInfo] = useState<BlogInfoType>({})
 
   const id = useMemo(() => {
     return pathname.replace(/.*\//g, '')
   }, [pathname])
 
+  const { data: blogInfo, loading } = useRequest<BlogInfoType>(() => {
+    return BlogInfoApi(id)
+  })
+
   const articleDetail = useMemo(() => {
-    return blogInfo.mdData || blogInfo.content
+    return blogInfo && (blogInfo.mdData || blogInfo.content)
   }, [blogInfo])
 
-  const getBlogInfo = async () => {
-    if (!id) {
-      message.error('缺少id')
-      return
-    }
-
-    try {
-      const res = await BlogInfoApi(id)
-      res && setBlogInfo(res)
-    } catch (error) {
-      console.log('获取博文报错了', error)
-    }
-  }
-
-  useEffect(() => {
-    getBlogInfo()
-  }, [])
-
   return (
-    <div className={styles.articleDetail}>
-      <div className={styles.articleDetailTitle}>{blogInfo.title}</div>
-      {blogInfo.tags && blogInfo.tags.length > 0 && (
-        <div className={styles.articleDetailTags}>
-          {blogInfo.tags.map(tag => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
+    <Spin className={styles.spin} spinning={loading}>
+      {blogInfo && (
+        <div className={styles.articleDetail}>
+          <div className={styles.articleDetailTitle}>{blogInfo.title}</div>
+          {blogInfo.tags && blogInfo.tags.length > 0 && (
+            <div className={styles.articleDetailTags}>
+              {blogInfo.tags.map(tag => (
+                <Tag key={tag}>{tag}</Tag>
+              ))}
+            </div>
+          )}
+          <Space className={styles.articleDetailInfo}>
+            <IconText
+              icon={ClockCircleOutlined}
+              text={moment(blogInfo.createdDate).format('YYYY-MM-DD HH:mm:ss')}
+            />
+            <Divider type='vertical' />
+            <IconText
+              icon={UserOutlined}
+              text={
+                <Link to={`/account/center/${blogInfo.createdId}`}>{blogInfo.createdName}</Link>
+              }
+            />
+            <Divider type='vertical' />
+            <IconText icon={StarOutlined} text={blogInfo.collections} />
+            <Divider type='vertical' />
+            <IconText icon={LikeOutlined} text={blogInfo.likes} />
+            <Divider type='vertical' />
+            <IconText icon={EyeOutlined} text={blogInfo.reads} />
+          </Space>
+
+          {articleDetail && (
+            <>
+              <Divider className={styles.splitLine} />
+              <Reader editor={blogInfo.editor} value={articleDetail} />
+            </>
+          )}
         </div>
       )}
-      <Space className={styles.articleDetailInfo}>
-        <IconText
-          icon={ClockCircleOutlined}
-          text={moment(blogInfo.createdDate).format('YYYY-MM-DD HH:mm:ss')}
-        />
-        <Divider type='vertical' />
-        <IconText icon={UserOutlined} text={blogInfo.createdName} />
-        <Divider type='vertical' />
-        <IconText icon={StarOutlined} text={blogInfo.collections} />
-        <Divider type='vertical' />
-        <IconText icon={LikeOutlined} text={blogInfo.likes} />
-        <Divider type='vertical' />
-        <IconText icon={EyeOutlined} text={blogInfo.reads} />
-      </Space>
-
-      {articleDetail && (
-        <>
-          <Divider className={styles.splitLine} />
-          <Reader editor={blogInfo.editor} value={articleDetail} />
-        </>
-      )}
-    </div>
+    </Spin>
   )
 }

@@ -3,7 +3,7 @@
  * @Date: 2021-12-14 15:22:37
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-21 21:27:23
+ * @LastEditTime: 2022-01-05 12:30:16
  * @Description:
  */
 import { notification } from 'antd'
@@ -82,11 +82,8 @@ const errorHandler = async (error: ResponseError) => {
   throw error
 }
 
-const baseUrl = process.env.NODE_ENV === 'development' ? '' : 'http://127.0.0.1:7001'
-const prefix = process.env.NODE_ENV === 'development' ? '/services' : ''
-
 const requestConfig: RequestConfig = {
-  prefix,
+  prefix: '/api',
   timeout: 60000,
   errorHandler,
   requestInterceptors: [
@@ -105,7 +102,7 @@ const requestConfig: RequestConfig = {
       }
 
       return {
-        url: baseUrl + url,
+        url,
         options: { ...options, headers }
       }
     }

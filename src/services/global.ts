@@ -17,15 +17,15 @@ export const GetCrsfKey = () => {
 }
 
 /**
- * @description 获取当前用户信息
+ * @description 获取用户信息，没有 userId 就获取当前用户
  * @returns Promise
  */
-export const GetCurrentUserInfo = () => {
-  return request('/user/api/current')
+export const GetUserInfo = (userId?: string | number) => {
+  return request('/user/api/info', { method: 'post', data: { userId } })
 }
 
 /**
- * @description 获取当前用户信息
+ * @description 更新当前用户信息
  * @returns Promise
  */
 export const UpdateCurrentUser = (params: API.UpdateCurrentUser) => {

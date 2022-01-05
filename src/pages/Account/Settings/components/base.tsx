@@ -120,6 +120,7 @@ const BaseView: React.FC = () => {
               id: 'pages.account.basic.tags',
               defaultMessage: '标签'
             })}
+            placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })}
             mode='tags'
             options={[]}
           />

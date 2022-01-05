@@ -117,7 +117,7 @@ export default [
         hideInMenu: true,
         routes: [
           {
-            path: '/account/center',
+            path: '/account/center/:userId?',
             name: 'center',
             wrappers: ['@/wrappers/auth'],
             component: './Account/Center'

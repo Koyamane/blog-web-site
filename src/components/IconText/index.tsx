@@ -8,7 +8,7 @@
  */
 
 import React, { FunctionComponent } from 'react'
-import { Space } from 'antd'
+import { Space, SpaceProps } from 'antd'
 
 export interface IconTextInterface {
   style?: React.CSSProperties
@@ -17,8 +17,8 @@ export interface IconTextInterface {
   text?: React.ReactNode
 }
 
-const IconText = ({ icon, text, style, className }: IconTextInterface) => (
-  <Space className={className} style={style}>
+const IconText = ({ icon, text, style, className, ...others }: IconTextInterface & SpaceProps) => (
+  <Space {...others} className={className} style={style}>
     {icon && React.createElement(icon)}
     {text}
   </Space>

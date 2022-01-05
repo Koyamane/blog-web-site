@@ -13,7 +13,7 @@ import { PageLoading } from '@ant-design/pro-layout'
 import RightContent from '@/components/RightContent'
 import Footer from '@/components/Footer'
 import requestConfig from './requestConfig'
-import { GetCrsfKey, GetCurrentUserInfo } from './services/global'
+import { GetCrsfKey, GetUserInfo } from './services/global'
 
 const loginPath = '/user/login'
 
@@ -32,7 +32,7 @@ export async function getInitialState(): Promise<{
 }> {
   const fetchUserInfo = async () => {
     try {
-      const userInfo = await GetCurrentUserInfo()
+      const userInfo = await GetUserInfo()
       return userInfo
     } catch (error) {
       // history.push(loginPath)

@@ -1,8 +1,17 @@
-import React, { useMemo, useState } from 'react'
-import { connect, FormattedMessage, useModel } from 'umi'
+/*
+ * @Author: dingyun
+ * @Date: 2021-12-25 23:14:57
+ * @LastEditors: dingyun
+ * @Email: dingyun@zhuosoft.com
+ * @LastEditTime: 2022-01-01 12:53:53
+ * @Description: 有id时，就是别人的详情页面，没有就是自己的详情页面
+ */
+import React, { useEffect, useMemo, useState } from 'react'
+import { connect, FormattedMessage, useLocation, useRequest } from 'umi'
 import { Card, Col, Divider, Row, Tag } from 'antd'
 import { HomeOutlined, ContactsOutlined, SmileOutlined } from '@ant-design/icons'
 import { GridContent } from '@ant-design/pro-layout'
+import { GetUserInfo } from '@/services/global'
 import IconText from '@/components/IconText'
 import Articles from './components/Articles'
 import type { AccountCenterState, tabKeyType } from './data'
@@ -10,8 +19,24 @@ import styles from './index.less'
 
 const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
   const [tabKey, setTabKey] = useState<tabKeyType>('articles')
-  const { initialState } = useModel('@@initialState')
-  const currentUser = initialState?.currentUser
+
+  const { pathname } = useLocation()
+
+  const userId = useMemo(() => {
+    return pathname.split('/')[3]
+  }, [pathname])
+
+  //  获取用户信息，默认不发请求
+  const {
+    data: currentUser,
+    run,
+    loading
+  } = useRequest<API.CurrentUser>(
+    () => {
+      return GetUserInfo(userId)
+    },
+    { manual: true }
+  )
 
   const operationTabList = useMemo(() => {
     return [
@@ -32,13 +57,14 @@ const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
     return (
       <Row className={styles.detail} justify='center' gutter={[0, 10]}>
         <Col span={24}>
-          <IconText icon={ContactsOutlined} text={post} />
+          <IconText align='start' icon={ContactsOutlined} text={post} />
         </Col>
         <Col span={24}>
-          <IconText icon={SmileOutlined} text={country?.label} />
+          <IconText align='start' icon={SmileOutlined} text={country?.label} />
         </Col>
         <Col span={24}>
           <IconText
+            align='start'
             icon={HomeOutlined}
             text={
               <span>
@@ -60,12 +86,17 @@ const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
     return null
   }
 
+  useEffect(() => {
+    // 每次id不同，就发请求
+    run()
+  }, [userId])
+
   return (
     <GridContent>
       <Row gutter={24}>
         <Col lg={7} md={24} sm={24} xs={24}>
-          <Card bordered={false} style={{ marginBottom: 24 }}>
-            {currentUser && (
+          <Card bordered={false} style={{ marginBottom: 24 }} loading={loading}>
+            {!loading && currentUser && (
               <div>
                 <div className={styles.avatarHolder}>
                   <img src={currentUser.avatar} alt='avatar' />
@@ -103,11 +134,11 @@ const Center: React.FC<AccountCenterState> = ({ articlesNum }) => {
         </Col>
         <Col lg={17} md={24} sm={24} xs={24}>
           <Card
-            className={styles.tabsCard}
             bordered={false}
+            activeTabKey={tabKey}
             bodyStyle={{ padding: 0 }}
             tabList={operationTabList}
-            activeTabKey={tabKey}
+            className={styles.tabsCard}
             onTabChange={(_tabKey: string) => {
               setTabKey(_tabKey as tabKeyType)
             }}

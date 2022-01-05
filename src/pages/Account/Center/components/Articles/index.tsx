@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { connect, Dispatch, NavLink, useIntl } from 'umi'
 import { List, Tag } from 'antd'
 import moment from 'moment'
@@ -23,25 +23,30 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
     pagination: { current: 1, total: 0 }
   })
 
-  const itemRender = (
-    current: number,
-    type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
-    originalElement: React.ReactNode
-  ) => {
-    if (type === 'prev') {
-      return (
-        <a>
-          {intl.formatMessage({ id: 'pages.searchTable.previousPage', defaultMessage: '上一页' })}
-        </a>
-      )
-    }
-    if (type === 'next') {
-      return (
-        <a>{intl.formatMessage({ id: 'pages.searchTable.nextPage', defaultMessage: '下一页' })}</a>
-      )
-    }
-    return originalElement
-  }
+  const itemRender = useCallback(
+    (
+      current: number,
+      type: 'page' | 'prev' | 'next' | 'jump-prev' | 'jump-next',
+      originalElement: React.ReactNode
+    ) => {
+      if (type === 'prev') {
+        return (
+          <a>
+            {intl.formatMessage({ id: 'pages.searchTable.previousPage', defaultMessage: '上一页' })}
+          </a>
+        )
+      }
+      if (type === 'next') {
+        return (
+          <a>
+            {intl.formatMessage({ id: 'pages.searchTable.nextPage', defaultMessage: '下一页' })}
+          </a>
+        )
+      }
+      return originalElement
+    },
+    []
+  )
 
   const getBlogList = async (current: number = 1) => {
     setBistLoading(true)
@@ -67,8 +72,9 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
   }
 
   useEffect(() => {
+    // 每次id不一样，都要发请求
     getBlogList()
-  }, [])
+  }, [userId])
 
   return (
     <List

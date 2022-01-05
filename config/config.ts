@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-26 14:40:56
+ * @LastEditTime: 2022-01-05 15:16:44
  * @Description:
  */
 // https://umijs.org/config/
@@ -73,5 +73,6 @@ export default defineConfig({
   },
   mfsu: {},
   webpack5: {},
-  exportStatic: {}
+  exportStatic: {},
+  outputPath: 'yamanesi'
 })

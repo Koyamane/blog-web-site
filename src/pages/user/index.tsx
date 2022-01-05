@@ -1,5 +1,6 @@
 import React from 'react'
 import { SelectLang } from 'umi'
+import '@ant-design/pro-form/es/layouts/LoginForm/index.less'
 import Footer from '@/components/Footer'
 import styles from './index.less'
 
