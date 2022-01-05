@@ -3,7 +3,7 @@
  * @Date: 2021-12-14 15:22:37
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-05 12:30:16
+ * @LastEditTime: 2022-01-05 21:30:40
  * @Description:
  */
 import { notification } from 'antd'
@@ -58,7 +58,7 @@ const errorHandler = async (error: ResponseError) => {
 
       const { search, pathname } = history.location
       if (window.location.pathname !== '/user/login') {
-        history.push({
+        history.replace({
           pathname: '/user/login',
           search: stringify({
             redirect: pathname + search
