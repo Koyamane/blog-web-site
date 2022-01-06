@@ -7,7 +7,7 @@
  * @Description:
  */
 import React, { useState } from 'react'
-import { history, useIntl } from 'umi'
+import { FormattedMessage, history, useIntl } from 'umi'
 import { Alert, Button, Form, Input, message, Select, Space } from 'antd'
 import useFormItemFillHint from '@/hooks/FormItemFillHint'
 import RichTextEditor from './components/RichTextEditor'
@@ -33,6 +33,26 @@ export default (): React.ReactNode => {
   const htmlChange = (htmlVal: string) => (htmlValue = htmlVal)
 
   const editorChange = (editorValue: AddBlogType['editor']) => setEditor(editorValue)
+
+  const checkSpace = (_: any, value: string) => {
+    if (value && /^\s*$/.test(value)) {
+      return Promise.reject(
+        <FormattedMessage id='pages.form.space.error' defaultMessage='不能全是空格' />
+      )
+    }
+
+    return Promise.resolve()
+  }
+
+  const checkTags = (_: any, valArr: string[]) => {
+    if (valArr.some(item => item.length > 20)) {
+      return Promise.reject(
+        <FormattedMessage id='pages.form.tag.error' defaultMessage='单个标签长度不能大于20' />
+      )
+    }
+
+    return Promise.resolve()
+  }
 
   const releaseBlog = () => {
     form.validateFields().then(async (formValues: AddBlogType) => {
@@ -70,12 +90,19 @@ export default (): React.ReactNode => {
         <Form.Item
           name='title'
           label={intl.formatMessage({ id: 'pages.form.itemTitle' })}
-          rules={[{ required: true, message: formItemFillHint('form.itemTitle') }]}
+          rules={[
+            { required: true, message: formItemFillHint('form.itemTitle') },
+            { validator: checkSpace }
+          ]}
         >
           <Input placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })} />
         </Form.Item>
 
-        <Form.Item name='tags' label={intl.formatMessage({ id: 'pages.form.itemTag' })}>
+        <Form.Item
+          name='tags'
+          label={intl.formatMessage({ id: 'pages.form.itemTag' })}
+          rules={[{ validator: checkTags }]}
+        >
           <Select
             mode='tags'
             allowClear

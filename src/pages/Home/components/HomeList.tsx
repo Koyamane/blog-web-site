@@ -91,14 +91,14 @@ const HomeList: React.FC = () => {
         <List.Item
           key={item.id}
           actions={[
-            <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
-            <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
-            <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />,
             <IconText
               icon={ClockCircleOutlined}
               text={moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')}
               key='list-vertical-date'
-            />
+            />,
+            <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
+            <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
+            <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />
           ]}
           extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
         >

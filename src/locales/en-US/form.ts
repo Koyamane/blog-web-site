@@ -19,5 +19,7 @@ export default {
   'pages.form.itemEditor': 'Editor',
   'pages.form.modify.success': 'Modify successful!',
   'pages.form.modify.error': 'Modify failed, please try again!',
-  'pages.form.editImage': 'Edit image'
+  'pages.form.editImage': 'Edit image',
+  'pages.form.space.error': 'Not all spaces',
+  'pages.form.tag.error': 'Tag length cannot be greater than 20'
 }

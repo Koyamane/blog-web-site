@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-05 15:16:44
+ * @LastEditTime: 2022-01-06 17:52:00
  * @Description:
  */
 // https://umijs.org/config/
@@ -48,12 +48,6 @@ export default defineConfig({
     'primary-color': defaultSettings.primaryColor,
     ...theme
   },
-  scripts: [
-    {
-      src: '/js/canvas-nest.min.js',
-      defer: true
-    }
-  ],
   request: {
     dataField: ''
   },

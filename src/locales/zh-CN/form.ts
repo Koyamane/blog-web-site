@@ -19,5 +19,7 @@ export default {
   'pages.form.itemEditor': '编辑器',
   'pages.form.modify.success': '修改成功！',
   'pages.form.modify.error': '修改失败，请重试！',
-  'pages.form.editImage': '编辑图片'
+  'pages.form.editImage': '编辑图片',
+  'pages.form.space.error': '不能全是空格',
+  'pages.form.tag.error': '单个标签长度不能大于20'
 }

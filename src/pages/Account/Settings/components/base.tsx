@@ -18,6 +18,26 @@ const BaseView: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState')
   const currentUser = initialState?.currentUser
 
+  const checkSpace = (_: any, value: string) => {
+    if (value && /^\s*$/.test(value)) {
+      return Promise.reject(
+        <FormattedMessage id='pages.form.space.error' defaultMessage='不能全是空格' />
+      )
+    }
+
+    return Promise.resolve()
+  }
+
+  const checkTags = (_: any, valArr: string[]) => {
+    if (valArr.some(item => item.length > 20)) {
+      return Promise.reject(
+        <FormattedMessage id='pages.form.tag.error' defaultMessage='单个标签长度不能大于20' />
+      )
+    }
+
+    return Promise.resolve()
+  }
+
   const handleFinish = async (formData: API.UpdateCurrentUser) => {
     setBtnLoading(true)
     try {
@@ -92,7 +112,8 @@ const BaseView: React.FC = () => {
                     defaultMessage='请输入您的昵称！'
                   />
                 )
-              }
+              },
+              { validator: checkSpace }
             ]}
           />
 
@@ -120,6 +141,7 @@ const BaseView: React.FC = () => {
               id: 'pages.account.basic.tags',
               defaultMessage: '标签'
             })}
+            rules={[{ validator: checkTags }]}
             placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })}
             mode='tags'
             options={[]}
