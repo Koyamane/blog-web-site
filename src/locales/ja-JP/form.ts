@@ -21,5 +21,6 @@ export default {
   'pages.form.modify.error': '変更失敗、再試行してください！',
   'pages.form.editImage': '画像カット',
   'pages.form.space.error': 'すべてスペースにすることはできません',
-  'pages.form.tag.error': '1つのタグの長さを20より大きくすることはできません。'
+  'pages.form.tag.error': '1つのタグの長さを20より大きくすることはできません',
+  'pages.form.tooLong30': '30文字以内でなければなりません'
 }

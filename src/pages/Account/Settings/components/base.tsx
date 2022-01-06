@@ -18,10 +18,16 @@ const BaseView: React.FC = () => {
   const { initialState, setInitialState } = useModel('@@initialState')
   const currentUser = initialState?.currentUser
 
-  const checkSpace = (_: any, value: string) => {
+  const checkNickname = (_: any, value: string) => {
     if (value && /^\s*$/.test(value)) {
       return Promise.reject(
         <FormattedMessage id='pages.form.space.error' defaultMessage='不能全是空格' />
+      )
+    }
+
+    if (value && value.length > 30) {
+      return Promise.reject(
+        <FormattedMessage id='pages.form.tooLong30' defaultMessage='不能超过30个字符' />
       )
     }
 
@@ -113,7 +119,7 @@ const BaseView: React.FC = () => {
                   />
                 )
               },
-              { validator: checkSpace }
+              { validator: checkNickname }
             ]}
           />
 
