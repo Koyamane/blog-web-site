@@ -21,11 +21,16 @@
 
   .articleDetailTags {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: @margin-md;
+
+    & > span {
+      margin-bottom: @margin-md;
+    }
   }
 
   .articleDetailInfo {
+    flex-wrap: wrap;
     justify-content: center;
     width: 100%;
   }
