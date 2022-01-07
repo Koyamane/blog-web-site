@@ -3,7 +3,7 @@
  * @Date: 2021-12-22 11:12:27
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-27 15:27:49
+ * @LastEditTime: 2022-01-07 19:23:35
  * @Description:
  */
 import React, { useState } from 'react'
@@ -107,7 +107,7 @@ export default (): React.ReactNode => {
             mode='tags'
             allowClear
             notFoundContent=''
-            tokenSeparators={[',', ' ', '\t', '\n', '\r']}
+            tokenSeparators={[',', '\t', '\n', '\r']}
             placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })}
           />
         </Form.Item>
