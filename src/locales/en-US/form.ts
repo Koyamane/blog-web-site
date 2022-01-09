@@ -22,5 +22,8 @@ export default {
   'pages.form.editImage': 'Edit image',
   'pages.form.space.error': 'Not all spaces',
   'pages.form.tag.error': 'Tag length cannot be greater than 20',
-  'pages.form.tooLong30': 'Must be within 16 characters'
+  'pages.form.tooLong30': 'Must be within 16 characters',
+  'pages.form.delete.title': 'Are you sure you want to delete?',
+  'pages.form.delete.success': 'Delete successful!',
+  'pages.form.delete.error': 'Delete failed, please try again!'
 }

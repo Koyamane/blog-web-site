@@ -10,13 +10,7 @@ import React, { useMemo } from 'react'
 import { Link, useLocation, useRequest } from 'umi'
 import { Divider, Space, Spin, Tag } from 'antd'
 import moment from 'moment'
-import {
-  ClockCircleOutlined,
-  EyeOutlined,
-  LikeOutlined,
-  StarOutlined,
-  UserOutlined
-} from '@ant-design/icons'
+import { ClockCircleOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import IconText from '@/components/IconText'
 import MarkdownReader from './components/MarkdownReader'
 import RichTextReader from './components/RichTextReader'
@@ -67,10 +61,10 @@ export default (): React.ReactNode => {
               }
             />
             <Divider type='vertical' />
-            <IconText icon={StarOutlined} text={blogInfo.collections} />
+            {/* <IconText icon={StarOutlined} text={blogInfo.collections} />
             <Divider type='vertical' />
             <IconText icon={LikeOutlined} text={blogInfo.likes} />
-            <Divider type='vertical' />
+            <Divider type='vertical' /> */}
             <IconText icon={EyeOutlined} text={blogInfo.reads} />
           </Space>
 

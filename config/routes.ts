@@ -95,15 +95,22 @@ export default [
         icon: 'read',
         routes: [
           {
-            path: '/blog/edit',
+            path: '/blog/new',
+            name: 'new',
+            wrappers: ['@/wrappers/auth'],
+            component: './Blog/BlogEdit'
+          },
+          {
+            path: '/blog/edit/:id',
             name: 'edit',
+            hideInMenu: true,
             wrappers: ['@/wrappers/auth'],
             component: './Blog/BlogEdit'
           },
           {
             path: '/blog/post/:id',
-            hideInMenu: true,
             name: 'post',
+            hideInMenu: true,
             component: './Blog/BlogPost'
           },
           {

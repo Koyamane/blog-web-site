@@ -1,10 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { connect, Dispatch, NavLink, useIntl } from 'umi'
-import { List, Tag } from 'antd'
+import { connect, Dispatch, Link, NavLink, useIntl } from 'umi'
+import { List, message, Modal, Tag } from 'antd'
 import moment from 'moment'
-import { LikeOutlined, StarOutlined, EyeOutlined, ClockCircleOutlined } from '@ant-design/icons'
+import {
+  EyeOutlined,
+  ClockCircleOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  ExclamationCircleOutlined
+} from '@ant-design/icons'
 import IconText from '@/components/IconText'
-import { SomebodyBlogPage } from '../../service'
+import { DeleteBlogApi, SomebodyBlogPage } from '../../service'
 import styles from './index.less'
 
 interface SelfProps {
@@ -48,7 +54,7 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
     []
   )
 
-  const getBlogList = async (current: number = 1) => {
+  const getBlogList = async (current: number = blogData.pagination.current) => {
     setBistLoading(true)
     try {
       const res = await SomebodyBlogPage(userId, { current })
@@ -71,6 +77,43 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
     setBistLoading(false)
   }
 
+  const deleteBlog = async (id: API.BlogInfo['id']) => {
+    setBistLoading(true)
+    try {
+      await DeleteBlogApi(id)
+      message.success(
+        intl.formatMessage({
+          id: 'pages.form.delete.success',
+          defaultMessage: '删除成功！'
+        })
+      )
+      getBlogList()
+    } catch (error) {
+      message.success(
+        intl.formatMessage({
+          id: 'pages.form.delete.error',
+          defaultMessage: '删除失败，请重试！'
+        })
+      )
+    }
+    setBistLoading(false)
+  }
+
+  const handleDeleteBlog = async (title: API.BlogInfo['title'], id: API.BlogInfo['id']) => {
+    Modal.confirm({
+      title: intl.formatMessage({
+        id: 'pages.form.delete.title',
+        defaultMessage: '确定要删除吗？'
+      }),
+      icon: <ExclamationCircleOutlined />,
+      content: title,
+      okType: 'danger',
+      onOk() {
+        deleteBlog(id)
+      }
+    })
+  }
+
   useEffect(() => {
     // 每次id不一样，都要发请求
     getBlogList()
@@ -78,7 +121,6 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
 
   return (
     <List
-      className={styles.blogList}
       size='large'
       loading={listLoading}
       itemLayout='vertical'
@@ -87,6 +129,7 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
         itemRender,
         onChange: getBlogList
       }}
+      className={styles.blogList}
       dataSource={blogData?.list}
       renderItem={item => (
         <List.Item
@@ -97,9 +140,27 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
               text={moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')}
               key='list-vertical-date'
             />,
-            <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
-            <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
-            <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />
+            // <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
+            // <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
+            <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />,
+            <IconText
+              key='list-vertical-edit'
+              icon={EditOutlined}
+              text={
+                <Link to={`/blog/edit/${item.id}`}>
+                  {intl.formatMessage({ id: 'pages.form.edit', defaultMessage: '编辑' })}
+                </Link>
+              }
+            />,
+            <IconText
+              key='list-vertical-delete'
+              icon={DeleteOutlined}
+              text={
+                <a onClick={() => handleDeleteBlog(item.title, item.id)}>
+                  {intl.formatMessage({ id: 'pages.form.delete', defaultMessage: '删除' })}
+                </a>
+              }
+            />
           ]}
           extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
         >

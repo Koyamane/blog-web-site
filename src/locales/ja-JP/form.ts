@@ -22,5 +22,8 @@ export default {
   'pages.form.editImage': '画像カット',
   'pages.form.space.error': 'すべてスペースにすることはできません',
   'pages.form.tag.error': '1つのタグの長さを20より大きくすることはできません',
-  'pages.form.tooLong30': '30文字以内でなければなりません'
+  'pages.form.tooLong30': '30文字以内でなければなりません',
+  'pages.form.delete.title': '本当に削除しますか？',
+  'pages.form.delete.success': '削除成功！',
+  'pages.form.delete.error': '削除失敗、再試行してください！'
 }

@@ -6,33 +6,37 @@
  * @LastEditTime: 2022-01-07 19:23:35
  * @Description:
  */
-import React, { useState } from 'react'
-import { FormattedMessage, history, useIntl } from 'umi'
-import { Alert, Button, Form, Input, message, Select, Space } from 'antd'
+import React, { useEffect, useMemo, useState } from 'react'
+import { FormattedMessage, history, useIntl, useLocation } from 'umi'
+import { Alert, Button, Form, Input, message, Select, Space, Spin } from 'antd'
 import useFormItemFillHint from '@/hooks/FormItemFillHint'
 import RichTextEditor from './components/RichTextEditor'
 import MarkdownEditor from './components/MarkdownEditor'
-import { BlogAddApi } from './services'
-import { AddBlogType } from './data'
+import { BlogAddApi, BlogInfoApi, BlogUpdateApi } from './services'
+import { AddBlogType, BlogInfoType } from './data'
 import styles from './index.less'
 
 // html数据，这个数据不需要及时刷新组件
 let htmlValue = ''
 
 export default (): React.ReactNode => {
-  // 这个是markdown格式的
-  const [articleValue, setArticleValue] = useState('')
-  const [btnLoading, setBtnLoading] = useState(false)
-  const [editor, setEditor] = useState<AddBlogType['editor']>('RICH_TEXT')
   const intl = useIntl()
   const [form] = Form.useForm()
   const formItemFillHint = useFormItemFillHint()
+  const [blogInfo, setBlogInfo] = useState({})
+  const [mdData, setMdData] = useState('')
+  const [btnLoading, setBtnLoading] = useState(false)
+  const [pageLoading, setPageLoading] = useState(false)
+  const [editor, setEditor] = useState<AddBlogType['editor']>()
 
   const resetForm = () => form.resetFields()
-
   const htmlChange = (htmlVal: string) => (htmlValue = htmlVal)
 
-  const editorChange = (editorValue: AddBlogType['editor']) => setEditor(editorValue)
+  const { pathname } = useLocation()
+
+  const id = useMemo(() => {
+    return pathname.split('/')[3]
+  }, [pathname])
 
   const checkSpace = (_: any, value: string) => {
     if (value && /^\s*$/.test(value)) {
@@ -45,7 +49,7 @@ export default (): React.ReactNode => {
   }
 
   const checkTags = (_: any, valArr: string[]) => {
-    if (valArr.some(item => item.length > 20)) {
+    if (Array.isArray(valArr) && valArr.some(item => item.length > 20)) {
       return Promise.reject(
         <FormattedMessage id='pages.form.tag.error' defaultMessage='单个标签长度不能大于20' />
       )
@@ -54,20 +58,34 @@ export default (): React.ReactNode => {
     return Promise.resolve()
   }
 
+  const addBlog = async (params: AddBlogType) => {
+    const res = await BlogAddApi(params)
+    history.replace(`/blog/post/${res.id}`)
+    message.success('发布成功')
+  }
+
+  const editBlog = async (params: AddBlogType) => {
+    await BlogUpdateApi(params)
+    history.replace('/account/center')
+    message.success('编辑成功')
+  }
+
   const releaseBlog = () => {
     form.validateFields().then(async (formValues: AddBlogType) => {
       setBtnLoading(true)
       const params: AddBlogType = {
+        ...blogInfo,
         ...formValues,
-        mdData: articleValue,
-        content: formValues.editor === 'RICH_TEXT' ? articleValue : htmlValue
+        mdData: mdData,
+        content: formValues.editor === 'RICH_TEXT' ? mdData : htmlValue
       }
 
       try {
-        await BlogAddApi(params)
-        message.success('发布成功')
-        // 这里要跳转到博文详情页面，目前还没写，先跳到首页吧
-        history.replace('/')
+        if (id) {
+          await editBlog(params)
+        } else {
+          await addBlog(params)
+        }
       } catch (error) {
         setBtnLoading(false)
         console.log('发布博文报错了', error)
@@ -75,8 +93,31 @@ export default (): React.ReactNode => {
     })
   }
 
+  const getBlogInfo = async () => {
+    if (!id) {
+      setEditor('RICH_TEXT')
+      return
+    }
+
+    setPageLoading(true)
+    try {
+      const data: BlogInfoType = await BlogInfoApi(id)
+      setBlogInfo({ ...data })
+      setMdData(data.mdData)
+      setEditor(data.editor)
+      form.setFieldsValue({ ...data })
+    } catch (error) {
+      console.log(error)
+    }
+    setPageLoading(false)
+  }
+
+  useEffect(() => {
+    getBlogInfo()
+  }, [id])
+
   return (
-    <>
+    <Spin spinning={pageLoading}>
       <Alert
         banner
         showIcon={false}
@@ -117,7 +158,7 @@ export default (): React.ReactNode => {
           initialValue='RICH_TEXT'
           label={intl.formatMessage({ id: 'pages.form.itemEditor' })}
         >
-          <Select onChange={editorChange}>
+          <Select onChange={setEditor}>
             <Select.Option value='RICH_TEXT'>Rich text</Select.Option>
             <Select.Option value='MARKDOWN'>Markdown</Select.Option>
           </Select>
@@ -125,15 +166,15 @@ export default (): React.ReactNode => {
       </Form>
 
       <div className={styles.shadowBox}>
-        {editor === 'MARKDOWN' ? (
+        {/* 不要换成三元运算符，会有bug */}
+        {editor === 'RICH_TEXT' && <RichTextEditor value={mdData} onChange={setMdData} />}
+        {editor === 'MARKDOWN' && (
           <MarkdownEditor
             locale={intl.locale}
-            mdValue={articleValue}
+            mdValue={mdData}
             htmlChange={htmlChange}
-            mdChange={setArticleValue}
+            mdChange={setMdData}
           />
-        ) : (
-          <RichTextEditor value={articleValue} onChange={setArticleValue} />
         )}
       </div>
 
@@ -151,6 +192,6 @@ export default (): React.ReactNode => {
           })}
         </Button>
       </Space>
-    </>
+    </Spin>
   )
 }

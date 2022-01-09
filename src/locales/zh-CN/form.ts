@@ -22,5 +22,8 @@ export default {
   'pages.form.editImage': '编辑图片',
   'pages.form.space.error': '不能全是空格',
   'pages.form.tag.error': '单个标签长度不能大于20',
-  'pages.form.tooLong30': '不能超过30个字符'
+  'pages.form.tooLong30': '不能超过30个字符',
+  'pages.form.delete.title': '确定要删除吗？',
+  'pages.form.delete.success': '删除成功！',
+  'pages.form.delete.error': '删除失败，请重试'
 }

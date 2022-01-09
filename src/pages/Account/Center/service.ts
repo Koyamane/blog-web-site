@@ -15,3 +15,11 @@ import { request } from 'umi'
 export const SomebodyBlogPage = (userId: API.CurrentUser['userId'], params?: API.PageParams) => {
   return request(`/blog/api/page/${userId}`, { method: 'post', data: params })
 }
+
+/**
+ * @description 删除博客
+ * @returns Promise
+ */
+export const DeleteBlogApi = (id: API.BlogInfo['id']) => {
+  return request('/blog/api/delete', { method: 'delete', data: { id } })
+}

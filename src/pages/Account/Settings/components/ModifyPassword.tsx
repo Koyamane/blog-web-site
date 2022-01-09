@@ -152,9 +152,9 @@ const ModifyPassword: React.FC = () => {
     return true
   }
 
-  const submitBox = (props: any) => {
+  const submitBox = (props: any, dom: any) => {
     return [
-      <Button key='reset' disabled={btnLoading} onClick={() => props.form?.resetFields?.()}>
+      <Button key='reset' disabled={btnLoading} onClick={dom[0]?.props?.onClick}>
         {intl.formatMessage({
           id: 'pages.form.cancel',
           defaultMessage: '取消'

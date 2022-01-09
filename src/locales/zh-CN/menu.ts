@@ -1,16 +1,9 @@
-/*
- * @Author: dingyun
- * @Date: 2021-12-26 23:46:07
- * @LastEditors: dingyun
- * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-01 12:53:52
- * @Description:
- */
 export default {
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.blog': '博客',
-  'menu.blog.edit': '发布博客',
+  'menu.blog.new': '发布博客',
+  'menu.blog.edit': '编辑博客',
   'menu.blog.post': '博文',
   'menu.admin': '管理页',
   'menu.admin.sub-page': '二级管理页',

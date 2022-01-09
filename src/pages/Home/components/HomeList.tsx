@@ -12,13 +12,7 @@ import { NavLink, useIntl } from 'umi'
 import moment from 'moment'
 import { Avatar, List, Tag } from 'antd'
 import IconText from '@/components/IconText'
-import {
-  ClockCircleOutlined,
-  EyeOutlined,
-  LikeOutlined,
-  StarOutlined,
-  UserOutlined
-} from '@ant-design/icons'
+import { ClockCircleOutlined, EyeOutlined, UserOutlined } from '@ant-design/icons'
 import { BlogPageApi } from '../services'
 
 const HomeList: React.FC = () => {
@@ -96,8 +90,8 @@ const HomeList: React.FC = () => {
               text={moment(item.createdDate).format('YYYY-MM-DD HH:mm:ss')}
               key='list-vertical-date'
             />,
-            <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
-            <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
+            // <IconText icon={StarOutlined} text={item.collections} key='list-vertical-star-o' />,
+            // <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
             <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />
           ]}
           extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
