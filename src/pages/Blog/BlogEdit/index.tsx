@@ -3,13 +3,14 @@
  * @Date: 2021-12-22 11:12:27
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-07 19:23:35
+ * @LastEditTime: 2022-01-11 11:58:24
  * @Description:
  */
 import React, { useEffect, useMemo, useState } from 'react'
 import { FormattedMessage, history, useIntl, useLocation } from 'umi'
 import { Alert, Button, Form, Input, message, Select, Space, Spin } from 'antd'
 import useFormItemFillHint from '@/hooks/FormItemFillHint'
+import InputFileItem from '@/components/InputFileItem'
 import RichTextEditor from './components/RichTextEditor'
 import MarkdownEditor from './components/MarkdownEditor'
 import { BlogAddApi, BlogInfoApi, BlogUpdateApi } from './services'
@@ -23,7 +24,6 @@ export default (): React.ReactNode => {
   const intl = useIntl()
   const [form] = Form.useForm()
   const formItemFillHint = useFormItemFillHint()
-  const [blogInfo, setBlogInfo] = useState({})
   const [mdData, setMdData] = useState('')
   const [btnLoading, setBtnLoading] = useState(false)
   const [pageLoading, setPageLoading] = useState(false)
@@ -58,13 +58,13 @@ export default (): React.ReactNode => {
     return Promise.resolve()
   }
 
-  const addBlog = async (params: AddBlogType) => {
+  const addBlog = async (params: FormData) => {
     const res = await BlogAddApi(params)
     history.replace(`/blog/post/${res.id}`)
     message.success('发布成功')
   }
 
-  const editBlog = async (params: AddBlogType) => {
+  const editBlog = async (params: FormData) => {
     await BlogUpdateApi(params)
     history.replace('/account/center')
     message.success('编辑成功')
@@ -73,18 +73,31 @@ export default (): React.ReactNode => {
   const releaseBlog = () => {
     form.validateFields().then(async (formValues: AddBlogType) => {
       setBtnLoading(true)
+      const formData = new FormData()
+
       const params: AddBlogType = {
-        ...blogInfo,
         ...formValues,
         mdData: mdData,
-        content: formValues.editor === 'RICH_TEXT' ? mdData : htmlValue
+        content: formValues.editor === 'RICH_TEXT' ? mdData : htmlValue,
+        cover: formValues.cover
+      }
+
+      if (id) {
+        params.id = id
+      }
+
+      for (const key in params) {
+        if (Object.prototype.hasOwnProperty.call(params, key)) {
+          const element = params[key]
+          formData.append(key, element)
+        }
       }
 
       try {
         if (id) {
-          await editBlog(params)
+          await editBlog(formData)
         } else {
-          await addBlog(params)
+          await addBlog(formData)
         }
       } catch (error) {
         setBtnLoading(false)
@@ -102,10 +115,12 @@ export default (): React.ReactNode => {
     setPageLoading(true)
     try {
       const data: BlogInfoType = await BlogInfoApi(id)
-      setBlogInfo({ ...data })
       setMdData(data.mdData)
       setEditor(data.editor)
-      form.setFieldsValue({ ...data })
+      form.setFieldsValue({
+        ...data,
+        tags: data.tags || []
+      })
     } catch (error) {
       console.log(error)
     }
@@ -127,7 +142,7 @@ export default (): React.ReactNode => {
         })}
       />
 
-      <Form form={form} className={styles.form} labelAlign='left'>
+      <Form form={form} className={styles.form} labelAlign='left' encType='multipart/form-data'>
         <Form.Item
           name='title'
           label={intl.formatMessage({ id: 'pages.form.itemTitle' })}
@@ -151,6 +166,10 @@ export default (): React.ReactNode => {
             tokenSeparators={[',', '\t', '\n', '\r']}
             placeholder={intl.formatMessage({ id: 'pages.form.inputMsg' })}
           />
+        </Form.Item>
+
+        <Form.Item name='cover' label={intl.formatMessage({ id: 'pages.form.cover' })}>
+          <InputFileItem fileType='IMAGE' />
         </Form.Item>
 
         <Form.Item

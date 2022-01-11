@@ -1,5 +1,6 @@
 export default {
   'pages.form.upload': '上传',
+  'pages.form.clickToUpload': '点击上传',
   'pages.form.submit': '提交',
   'pages.form.blog': '发布',
   'pages.form.ok': '确定',
@@ -17,6 +18,7 @@ export default {
   'pages.form.itemTitle': '标题',
   'pages.form.itemTag': '标签',
   'pages.form.itemEditor': '编辑器',
+  'pages.form.cover': '封面',
   'pages.form.modify.success': '修改成功！',
   'pages.form.modify.error': '修改失败，请重试！',
   'pages.form.editImage': '编辑图片',

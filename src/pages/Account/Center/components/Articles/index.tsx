@@ -162,7 +162,13 @@ const Articles: React.FC<SelfProps> = ({ userId, dispatch }) => {
               }
             />
           ]}
-          extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
+          extra={
+            item.cover && (
+              <div className='blog-list-item-cover'>
+                <img className='blog-list-item-cover-img' alt='cover' src={item.cover} />
+              </div>
+            )
+          }
         >
           <List.Item.Meta
             title={<NavLink to={`/blog/post/${item.id}`}>{item.title}</NavLink>}

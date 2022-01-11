@@ -7,13 +7,12 @@
  * @Description:
  */
 import { request } from 'umi'
-import { AddBlogType } from './data'
 
-export const BlogAddApi = (params: AddBlogType) => {
+export const BlogAddApi = (params: FormData) => {
   return request('/blog/api/add', { method: 'post', data: params })
 }
 
-export const BlogUpdateApi = (params: AddBlogType) => {
+export const BlogUpdateApi = (params: FormData) => {
   return request('/blog/api/update', { method: 'put', data: params })
 }
 

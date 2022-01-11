@@ -1,5 +1,6 @@
 export default {
   'pages.form.upload': 'アップロード',
+  'pages.form.clickToUpload': 'クリックしてアップロードを開始',
   'pages.form.submit': '提出',
   'pages.form.blog': '投稿',
   'pages.form.ok': 'OK',
@@ -17,6 +18,7 @@ export default {
   'pages.form.itemTitle': 'タイトル',
   'pages.form.itemTag': 'タグ',
   'pages.form.itemEditor': 'エディタ',
+  'pages.form.cover': 'カバー',
   'pages.form.modify.success': '変更成功！',
   'pages.form.modify.error': '変更失敗、再試行してください！',
   'pages.form.editImage': '画像カット',

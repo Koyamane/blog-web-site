@@ -17,7 +17,7 @@ export interface BlogInfoType {
   title: string
   content: string
   mdData: string
-  previewImg: string
+  cover: string
   tags: string[]
   reads: number
   likes: number

@@ -24,11 +24,27 @@
     }
   }
 
+  .home-list-item-cover {
+    position: relative;
+    width: 270px;
+    height: 200px;
+    overflow: hidden;
+
+    .home-list-item-cover-img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .home-list-item-content {
     display: -webkit-box; // 对象作为伸缩盒子模型展示
     overflow: hidden;
     text-indent: 2em;
     text-overflow: ellipsis;
+    word-break: break-word;
     -webkit-box-orient: vertical; // 设置或检索伸缩盒子对象的子元素的排列方式
     -webkit-line-clamp: 4; // 在第几行上加 ...
   }

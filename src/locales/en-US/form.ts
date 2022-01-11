@@ -1,5 +1,6 @@
 export default {
   'pages.form.upload': 'Upload',
+  'pages.form.clickToUpload': 'Click to upload',
   'pages.form.submit': 'Submit',
   'pages.form.blog': 'Submit',
   'pages.form.ok': 'OK',
@@ -17,6 +18,7 @@ export default {
   'pages.form.itemTitle': 'Title',
   'pages.form.itemTag': 'Tag',
   'pages.form.itemEditor': 'Editor',
+  'pages.form.cover': 'Cover',
   'pages.form.modify.success': 'Modify successful!',
   'pages.form.modify.error': 'Modify failed, please try again!',
   'pages.form.editImage': 'Edit image',

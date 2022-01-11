@@ -257,3 +257,20 @@ const Text: React.FC = () => {
   return <IconText icon={SmileOutlined} text='测试' />
 }
 ```
+
+## InputFileItem
+
+上传文件组件
+
+### InputFileItem API
+
+| 参数        | 说明                 | 类型               | 默认值              |
+| ----------- | -------------------- | ------------------ | ------------------- |
+| afterText   | 按钮后缀             | `string`           | `上传`              |
+| placeholder | 占位符               | `string`           | `点击上传`          |
+| fileType    | 文件类型             | `IMAGE` \| `EXCEL` | `-`                 |
+| typeArr     | 自定义校验类型       | `string[]`         | `['.xls', '.xlsx']` |
+| fileSize    | 文件大小，单位 M     | `number`           | `20`                |
+| keyName     | 文件 key 值          | `string`           | `file`              |
+| base64      | 是否返回 base64 值   | `boolean`          | `false`             |
+| formData    | 是否返回 formData 值 | `boolean`          | `false`             |

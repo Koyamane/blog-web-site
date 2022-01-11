@@ -46,7 +46,7 @@ declare namespace API {
     createdDate: string
     title: string
     content: string
-    previewImg: string
+    cover: string
     tags: string[]
     reads: number
     likes: number

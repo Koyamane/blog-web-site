@@ -21,5 +21,5 @@ export const UpdatePasswordApi = (password: string) => {
  * @returns Promise
  */
 export const UpdateAvatarApi = (file: FormData) => {
-  return request('/upload/api/avatar', { method: 'put', data: file })
+  return request('/user/api/avatar/update', { method: 'put', data: file })
 }

@@ -3,7 +3,7 @@
  * @Date: 2021-12-10 20:54:10
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2021-12-26 15:20:29
+ * @LastEditTime: 2022-01-11 11:26:59
  * @Description:
  */
 import { RequestConfig, RunTimeLayoutConfig } from 'umi'
@@ -30,6 +30,14 @@ export async function getInitialState(): Promise<{
   currentUser?: API.CurrentUser
   fetchUserInfo?: () => Promise<API.CurrentUser | undefined>
 }> {
+  try {
+    // 这个有可能过期的，所以每次都要拿
+    const res = await GetCrsfKey()
+    sessionStorage.setItem('csrfToken', res)
+  } catch (error) {
+    console.log(error)
+  }
+
   const fetchUserInfo = async () => {
     try {
       const userInfo = await GetUserInfo()
@@ -55,21 +63,6 @@ export async function getInitialState(): Promise<{
     fetchUserInfo,
     settings: {}
   }
-}
-
-export async function render(oldRender: () => void) {
-  if (sessionStorage.getItem('csrfToken')) {
-    oldRender()
-    return
-  }
-
-  try {
-    const res = await GetCrsfKey()
-    sessionStorage.setItem('csrfToken', res)
-  } catch (error) {
-    console.log(error)
-  }
-  oldRender()
 }
 
 // ProLayout 支持的api https://procomponents.ant.design/components/layout

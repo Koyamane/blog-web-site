@@ -3,7 +3,7 @@
  * @Date: 2021-12-12 14:08:47
  * @LastEditors: dingyun
  * @Email: dingyun@zhuosoft.com
- * @LastEditTime: 2022-01-01 19:33:47
+ * @LastEditTime: 2022-01-11 11:09:56
  * @Description:
  */
 
@@ -94,7 +94,14 @@ const HomeList: React.FC = () => {
             // <IconText icon={LikeOutlined} text={item.likes} key='list-vertical-like-o' />,
             <IconText icon={EyeOutlined} text={item.reads} key='list-vertical-message' />
           ]}
-          extra={item.previewImg && <img width={272} alt='logo' src={item.previewImg} />}
+          // extra={item.cover && <div className='home-list-item-cover' style={{ backgroundImage: `url(${item.cover})` }} />}
+          extra={
+            item.cover && (
+              <div className='home-list-item-cover'>
+                <img className='home-list-item-cover-img' alt='cover' src={item.cover} />
+              </div>
+            )
+          }
         >
           <List.Item.Meta
             avatar={<Avatar src={item.createdAvatar} icon={<UserOutlined />} />}
