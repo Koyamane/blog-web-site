@@ -251,7 +251,7 @@ const Register: FC = () => {
           <span className='ant-pro-form-login-title'>
             {intl.formatMessage({
               id: 'pages.layouts.title',
-              defaultMessage: '山音曦'
+              defaultMessage: '山音溪'
             })}
           </span>
         </div>

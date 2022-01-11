@@ -1,6 +1,6 @@
 import CryptoJS from 'crypto-js'
 
-const defaultKey = 'ya-ma-ne-si-back-end_16393856704'
+const defaultKey = 'yamanesi_blog_back_end_163938567'
 
 /**
   * @description AES加密

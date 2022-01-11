@@ -12,7 +12,7 @@ export default {
   'layout.user.link.help': 'ヘルプ',
   'layout.user.link.privacy': 'プライバシー',
   'layout.user.link.terms': '利用規約',
-  'app.copyright.produced': '小山音と曦出品',
+  'app.copyright.produced': '小山音出品',
   'app.preview.down.block': 'このページをローカルプロジェクトにダウンロードしてください',
   'app.home.link.fetch-blocks': '',
   'app.home.link.block-list': '',

@@ -1,6 +1,6 @@
-# 山音曦
+# 山音溪
 
-山音曦博客网站前端项目，此项目基于 [Ant Design Pro](https://pro.ant.design)
+山音溪博客网站前端项目，此项目基于 [Ant Design Pro](https://pro.ant.design)
 
 [后端传送门][blog-back-end]
 

@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.title': '山音曦',
+  'pages.layouts.title': '山音溪',
   'pages.layouts.description': '極めて小さなブログサイトです',
   'pages.login.accountLogin.errorMessage': 'ユーザー名またはパスワードが正しくありません',
   'pages.login.failure': 'ログイン失敗、再試行してください！',

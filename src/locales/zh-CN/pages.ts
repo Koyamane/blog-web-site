@@ -1,5 +1,5 @@
 export default {
-  'pages.layouts.title': '山音曦',
+  'pages.layouts.title': '山音溪',
   'pages.layouts.description': '一个极其小众的博客网站',
   'pages.login.accountLogin.errorMessage': '用户名或密码不对',
   'pages.login.failure': '登录失败，请重试！',

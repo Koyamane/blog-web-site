@@ -12,7 +12,7 @@ export default {
   'layout.user.link.help': 'Help',
   'layout.user.link.privacy': 'Privacy',
   'layout.user.link.terms': 'Terms',
-  'app.copyright.produced': 'Produced by Koyamane and Xi',
+  'app.copyright.produced': 'Produced by Koyamane',
   'app.preview.down.block': 'Download this page to your local project',
   'app.home.link.fetch-blocks': 'Get all block',
   'app.home.link.block-list': 'Quickly build standard, pages based on `block` development',
